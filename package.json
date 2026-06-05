@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/greybodygames/web/issues"
   },
-  "homepage": "https://graybodygames.com",
+  "homepage": "https://greybodygames.com",
   "devDependencies": {
     "@tailwindcss/cli": "^4.3.0",
     "tailwindcss": "^4.3.0"
