@@ -1,0 +1,25 @@
+{
+  "name": "greybodygames-web",
+  "version": "1.0.0",
+  "description": "Static portfolio site for Greybody Games.",
+  "scripts": {
+    "build": "tailwindcss -i ./src/input.css -o ./styles.css --minify",
+    "dev": "tailwindcss -i ./src/input.css -o ./styles.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/greybodygames/web.git"
+  },
+  "keywords": [],
+  "author": "Sayak Mukhopadhyay",
+  "license": "UNLICENSED",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/greybodygames/web/issues"
+  },
+  "homepage": "https://graybodygames.com",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.0",
+    "tailwindcss": "^4.3.0"
+  }
+}

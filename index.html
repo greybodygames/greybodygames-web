@@ -12,33 +12,55 @@
     <link rel="icon" href="assets/greybody_games_logo.png" />
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
+  <body class="min-w-80 overflow-x-hidden bg-body font-sans text-base leading-[1.65] text-ink">
     <div class="site-background" aria-hidden="true">
       <div class="parallax-layer parallax-field"></div>
       <div class="parallax-layer parallax-line"></div>
       <div class="parallax-layer parallax-grain"></div>
     </div>
 
-    <div class="page-shell" id="top">
-      <aside class="identity-panel" aria-label="Greybody Games identity">
-        <a class="identity-mark" href="#top" aria-label="Greybody Games home">
+    <div
+      class="mx-auto grid w-[calc(100%_-_48px)] max-w-[1240px] grid-cols-[minmax(330px,430px)_minmax(0,740px)] gap-[clamp(40px,5vw,76px)] pt-[clamp(40px,7vh,80px)] pb-[34px] max-[820px]:block max-[820px]:w-[min(calc(100%_-_40px),360px)] max-[820px]:pt-6 max-[520px]:w-[min(calc(100%_-_32px),680px)]"
+      id="top"
+    >
+      <aside
+        class="sticky top-10 flex min-h-[calc(100vh_-_80px)] flex-col self-start py-1 max-[820px]:static max-[820px]:grid max-[820px]:min-h-0 max-[820px]:grid-cols-[auto_minmax(0,1fr)] max-[820px]:gap-4 max-[820px]:border-b max-[820px]:border-line max-[820px]:pb-[38px]"
+        aria-label="Greybody Games identity"
+      >
+        <a
+          class="identity-mark relative mt-2.5 mb-[34px] grid aspect-square w-[clamp(280px,28vw,380px)] place-items-center max-[820px]:mb-0 max-[820px]:w-[86px]"
+          href="#top"
+          aria-label="Greybody Games home"
+        >
           <span class="logo-ring" aria-hidden="true"></span>
           <img src="assets/greybody_games_logo.png" width="512" height="512" alt="" />
         </a>
         <div>
-          <p class="site-kicker">Greybody Games</p>
-          <p class="site-note">Solo game development by Sayak Mukhopadhyay.</p>
+          <p class="m-0 text-[0.72rem] font-[760] text-ink uppercase">Greybody Games</p>
+          <p class="mt-2.5 mb-0 max-w-72 text-[0.96rem] text-muted">
+            Solo game development by Sayak Mukhopadhyay.
+          </p>
         </div>
-        <nav class="site-nav" aria-label="Primary navigation">
-          <a href="#work">Work</a>
-          <a href="#about">About</a>
-          <a href="#elsewhere">Elsewhere</a>
+        <nav
+          class="mt-auto flex flex-col gap-2 pt-10 max-[820px]:col-span-full max-[820px]:mt-0 max-[820px]:flex-row max-[820px]:flex-wrap max-[820px]:gap-4 max-[820px]:pt-3.5"
+          aria-label="Primary navigation"
+        >
+          <a class="site-link" href="#work">Work</a>
+          <a class="site-link" href="#about">About</a>
+          <a class="site-link" href="#elsewhere">Elsewhere</a>
         </nav>
       </aside>
 
-      <main class="portfolio">
-        <section class="opening" aria-labelledby="intro-title">
-          <h1 id="intro-title" class="wordmark-title" aria-label="Greybody Games">
+      <main class="min-w-0">
+        <section
+          class="flex min-h-[min(760px,calc(100vh_-_114px))] flex-col justify-center pt-12 pb-[76px] max-[820px]:min-h-0 max-[820px]:pt-[70px] max-[820px]:pb-16"
+          aria-labelledby="intro-title"
+        >
+          <h1
+            id="intro-title"
+            class="wordmark-title mb-7 max-w-full text-[clamp(4.2rem,6.4vw,6.35rem)] font-normal text-ink max-[820px]:max-w-80 max-[820px]:text-[clamp(2.3rem,9vw,2.8rem)] max-[520px]:text-[clamp(2.25rem,9vw,2.65rem)]"
+            aria-label="Greybody Games"
+          >
             <span class="sr-only">Greybody Games</span>
             <span class="wordmark" aria-hidden="true">
               <span class="wordmark-line">
@@ -55,43 +77,56 @@
               <span class="wordmark-games">Games</span>
             </span>
           </h1>
-          <p class="opening-copy">
+          <p class="mb-0 max-w-[38rem] break-words text-[clamp(1rem,1.5vw,1.16rem)] text-accent max-[820px]:max-w-80">
             Greybody Games is my small game-development imprint. The current focus is
             Andromeda, an Unreal Engine project about orbital salvage, forensic
             evidence handling, and the practical machinery around believable jobs.
           </p>
         </section>
 
-        <section class="portfolio-section" id="work" aria-labelledby="work-title">
-          <div class="section-heading">
-            <span>01</span>
-            <h2 id="work-title">Work</h2>
+        <section
+          class="grid grid-cols-[120px_minmax(0,1fr)] gap-8 border-t border-line py-[58px] max-[820px]:grid-cols-1 max-[820px]:gap-[22px] max-[820px]:py-12"
+          id="work"
+          aria-labelledby="work-title"
+        >
+          <div class="grid content-start gap-2">
+            <span class="m-0 text-[0.72rem] font-[760] text-accent uppercase">01</span>
+            <h2 id="work-title" class="m-0 text-base font-[760] text-ink">Work</h2>
           </div>
-          <article class="work-entry">
+          <article class="flex items-start justify-between gap-8 max-[820px]:grid max-[820px]:gap-[18px]">
             <div>
-              <h3>Andromeda</h3>
-              <p>
+              <h3 class="mb-2 text-[clamp(1.55rem,3vw,2.35rem)] leading-[1.05] font-[720]">
+                Andromeda
+              </h3>
+              <p class="mb-0 max-w-[38rem] text-[#d0d0d0] max-[820px]:max-w-80">
                 A compact vertical slice centered on inspecting, classifying,
                 packaging, and handing off salvage in orbit.
               </p>
             </div>
-            <a class="text-link" href="https://andromeda-docs.sayakm.me/design/design-overview/">
+            <a
+              class="site-link"
+              href="https://andromeda-docs.sayakm.me/design/design-overview/"
+            >
               Read design docs
             </a>
           </article>
         </section>
 
-        <section class="portfolio-section" id="about" aria-labelledby="about-title">
-          <div class="section-heading">
-            <span>02</span>
-            <h2 id="about-title">About</h2>
+        <section
+          class="grid grid-cols-[120px_minmax(0,1fr)] gap-8 border-t border-line py-[58px] max-[820px]:grid-cols-1 max-[820px]:gap-[22px] max-[820px]:py-12"
+          id="about"
+          aria-labelledby="about-title"
+        >
+          <div class="grid content-start gap-2">
+            <span class="m-0 text-[0.72rem] font-[760] text-accent uppercase">02</span>
+            <h2 id="about-title" class="m-0 text-base font-[760] text-ink">About</h2>
           </div>
-          <div class="text-block">
-            <p>
+          <div class="grid gap-[18px]">
+            <p class="mb-0 max-w-[38rem] text-[#d0d0d0] max-[820px]:max-w-80">
               I am Sayak Mukhopadhyay, a software developer and platform engineer
               applying that systems background to a small, deliberate game project.
             </p>
-            <p>
+            <p class="mb-0 max-w-[38rem] text-[#d0d0d0] max-[820px]:max-w-80">
               The working style is simple: keep core rules in code, leave presentation
               flexible, and document enough of the design reasoning that future
               decisions have a clear trail.
@@ -99,36 +134,62 @@
           </div>
         </section>
 
-        <section class="portfolio-section" id="elsewhere" aria-labelledby="elsewhere-title">
-          <div class="section-heading">
-            <span>03</span>
-            <h2 id="elsewhere-title">Elsewhere</h2>
+        <section
+          class="grid grid-cols-[120px_minmax(0,1fr)] gap-8 border-t border-line py-[58px] max-[820px]:grid-cols-1 max-[820px]:gap-[22px] max-[820px]:py-12"
+          id="elsewhere"
+          aria-labelledby="elsewhere-title"
+        >
+          <div class="grid content-start gap-2">
+            <span class="m-0 text-[0.72rem] font-[760] text-accent uppercase">03</span>
+            <h2 id="elsewhere-title" class="m-0 text-base font-[760] text-ink">
+              Elsewhere
+            </h2>
           </div>
-          <ul class="elsewhere-list" aria-label="Social and project links">
+          <ul
+            class="elsewhere-list m-0 grid list-none border-t border-line p-0"
+            aria-label="Social and project links"
+          >
             <li>
-              <a href="https://github.com/SayakMukhopadhyay">
-                <span>GitHub</span>
-                <span>@SayakMukhopadhyay</span>
+              <a
+                class="grid grid-cols-[minmax(120px,0.48fr)_minmax(0,1fr)] gap-6 border-b border-line py-[18px] max-[520px]:grid-cols-1 max-[520px]:gap-0.5"
+                href="https://github.com/SayakMukhopadhyay"
+              >
+                <span class="font-[720] text-ink transition-colors duration-[160ms]">
+                  GitHub
+                </span>
+                <span class="break-words text-muted">@SayakMukhopadhyay</span>
               </a>
             </li>
             <li>
-              <a href="https://twitter.com/defineSayak">
-                <span>X / Twitter</span>
-                <span>@defineSayak</span>
+              <a
+                class="grid grid-cols-[minmax(120px,0.48fr)_minmax(0,1fr)] gap-6 border-b border-line py-[18px] max-[520px]:grid-cols-1 max-[520px]:gap-0.5"
+                href="https://twitter.com/defineSayak"
+              >
+                <span class="font-[720] text-ink transition-colors duration-[160ms]">
+                  X / Twitter
+                </span>
+                <span class="break-words text-muted">@defineSayak</span>
               </a>
             </li>
             <li>
-              <a href="https://sayakm.me/">
-                <span>Blog</span>
-                <span>sayakm.me</span>
+              <a
+                class="grid grid-cols-[minmax(120px,0.48fr)_minmax(0,1fr)] gap-6 border-b border-line py-[18px] max-[520px]:grid-cols-1 max-[520px]:gap-0.5"
+                href="https://sayakm.me/"
+              >
+                <span class="font-[720] text-ink transition-colors duration-[160ms]">
+                  Blog
+                </span>
+                <span class="break-words text-muted">sayakm.me</span>
               </a>
             </li>
           </ul>
         </section>
 
-        <footer class="site-footer">
+        <footer
+          class="flex justify-between gap-5 border-t border-line pt-[58px] text-[0.88rem] text-subtle max-[520px]:flex-col max-[520px]:pb-3"
+        >
           <span>Copyright &copy; 2026 Sayak Mukhopadhyay.</span>
-          <a href="#top">Back to top</a>
+          <a class="site-link" href="#top">Back to top</a>
         </footer>
       </main>
     </div>
