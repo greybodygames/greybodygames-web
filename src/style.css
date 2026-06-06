@@ -264,8 +264,8 @@
 
   .orbit-ring-4 {
     --inset: 22%;
-    --alpha: 0.36;
-    border-style: dotted;
+    --alpha: 0.34;
+    border-width: 0.8px;
   }
 
   .orbit-ring-5 {
@@ -312,7 +312,7 @@
 
   .orbit-point {
     inset: var(--inset);
-    transform: rotate(var(--angle, 0deg)) translateZ(var(--orbit-path-z));
+    transform: rotate(var(--angle, 0deg));
   }
 
   .orbit-point::after {
@@ -329,31 +329,38 @@
   }
 
   .orbit-point-1 {
-    --inset: 4%;
-    --angle: 28deg;
+    --inset: 0%;
+    --angle: 312deg;
     --size: 6px;
     --alpha: 0.74;
   }
 
   .orbit-point-2 {
-    --inset: 12%;
-    --angle: -68deg;
+    --inset: 8%;
+    --angle: 132deg;
     --size: 6px;
     --alpha: 0.86;
   }
 
   .orbit-point-3 {
-    --inset: 19%;
-    --angle: 148deg;
+    --inset: 15%;
+    --angle: 246deg;
     --size: 7px;
     --alpha: 0.78;
   }
 
   .orbit-point-4 {
-    --inset: 26%;
-    --angle: -154deg;
+    --inset: 22%;
+    --angle: 34deg;
     --size: 8px;
     --alpha: 0.7;
+  }
+
+  .orbit-point-5 {
+    --inset: 29%;
+    --angle: 78deg;
+    --size: 6px;
+    --alpha: 0.76;
   }
 
   .wordmark-line {
