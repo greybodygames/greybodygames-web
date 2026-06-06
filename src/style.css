@@ -222,6 +222,7 @@
     top: var(--wordmark-pivot-y);
     left: var(--wordmark-pivot-x);
     z-index: 1;
+    --orbit-path-z: 4px;
     width: clamp(320px, 42vw, 630px);
     aspect-ratio: 1;
     pointer-events: none;
@@ -278,7 +279,7 @@
     border: 1px solid transparent;
     border-top-color: rgba(255, 255, 255, var(--alpha, 0.34));
     border-right-color: rgba(255, 255, 255, var(--alpha, 0.34));
-    transform: rotate(var(--angle, 0deg)) translateZ(4px);
+    transform: rotate(var(--angle, 0deg)) translateZ(var(--orbit-path-z));
   }
 
   .orbit-arc-1 {
@@ -310,40 +311,48 @@
   }
 
   .orbit-point {
-    top: 50%;
+    inset: var(--inset);
+    transform: rotate(var(--angle, 0deg)) translateZ(var(--orbit-path-z));
+  }
+
+  .orbit-point::after {
+    position: absolute;
+    top: 0;
     left: 50%;
     width: var(--size, 6px);
     height: var(--size, 6px);
+    content: '';
     background: rgba(255, 255, 255, var(--alpha, 0.6));
+    border-radius: 999px;
     box-shadow: 0 0 12px rgba(255, 255, 255, 0.28);
-    transform: translate(-50%, -50%) rotate(var(--angle)) translateX(var(--radius));
+    transform: translate(-50%, -50%);
   }
 
   .orbit-point-1 {
-    --angle: 34deg;
-    --radius: clamp(118px, 17vw, 252px);
+    --inset: 4%;
+    --angle: 28deg;
     --size: 5px;
     --alpha: 0.74;
   }
 
   .orbit-point-2 {
-    --angle: 132deg;
-    --radius: clamp(98px, 14.4vw, 216px);
-    --size: 6px;
+    --inset: 12%;
+    --angle: -68deg;
+    --size: 5px;
     --alpha: 0.86;
   }
 
   .orbit-point-3 {
-    --angle: 246deg;
-    --radius: clamp(106px, 15.4vw, 232px);
-    --size: 4px;
+    --inset: 19%;
+    --angle: 148deg;
+    --size: 6px;
     --alpha: 0.78;
   }
 
   .orbit-point-4 {
-    --angle: 310deg;
-    --radius: clamp(76px, 10vw, 148px);
-    --size: 4px;
+    --inset: 26%;
+    --angle: -154deg;
+    --size: 7px;
     --alpha: 0.7;
   }
 
