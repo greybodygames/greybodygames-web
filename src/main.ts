@@ -1,5 +1,5 @@
+import "./style.css";
 import { animate, springValue } from "motion";
-import "./site.css";
 
 const plane = document.querySelector<HTMLElement>("[data-wordmark-plane]");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
