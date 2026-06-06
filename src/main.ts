@@ -22,6 +22,7 @@ type OrbitArc = {
   width: number
   start: number
   length: number
+  degreesPerSecond: number
   dash?: number[]
 }
 
@@ -30,6 +31,7 @@ type OrbitPoint = {
   angle: number
   size: number
   alpha: number
+  degreesPerSecond: number
 }
 
 const orbitRings: OrbitRing[] = [
@@ -41,24 +43,24 @@ const orbitRings: OrbitRing[] = [
 ]
 
 const orbitArcs: OrbitArc[] = [
-  { inset: 4, alpha: 0.56, width: 1.15, start: 252, length: 168 },
-  { inset: 12, alpha: 0.62, width: 1.15, start: 292, length: 156 },
-  { inset: 19, alpha: 0.44, width: 1, start: 34, length: 136 },
-  { inset: 26, alpha: 0.5, width: 1, start: 118, length: 146, dash: [5, 6] },
+  { inset: 4, alpha: 0.56, width: 1.15, start: 252, length: 168, degreesPerSecond: -5.5 },
+  { inset: 12, alpha: 0.62, width: 1.15, start: 292, length: 156, degreesPerSecond: -7.25 },
+  { inset: 19, alpha: 0.44, width: 1, start: 34, length: 136, degreesPerSecond: -4.25 },
+  { inset: 26, alpha: 0.5, width: 1, start: 118, length: 146, degreesPerSecond: -8.5, dash: [5, 6] },
 ]
 
 const orbitPoints: OrbitPoint[] = [
-  { inset: 0, angle: 312, size: 7, alpha: 0.74 },
-  { inset: 8, angle: 132, size: 7, alpha: 0.86 },
-  { inset: 15, angle: 246, size: 8, alpha: 0.78 },
-  { inset: 22, angle: 34, size: 6, alpha: 0.7 },
-  { inset: 29, angle: 78, size: 7, alpha: 0.76 },
+  { inset: 0, angle: 312, size: 7, alpha: 0.74, degreesPerSecond: 9.5 },
+  { inset: 8, angle: 132, size: 7, alpha: 0.86, degreesPerSecond: 12.5 },
+  { inset: 15, angle: 246, size: 8, alpha: 0.78, degreesPerSecond: 7.75 },
+  { inset: 22, angle: 34, size: 6, alpha: 0.7, degreesPerSecond: 14 },
+  { inset: 29, angle: 78, size: 7, alpha: 0.76, degreesPerSecond: 10.75 },
 ]
 
 const toRadians = (degrees: number) => (degrees * Math.PI) / 180
 const radiusFromInset = (size: number, inset: number) => (size * (1 - inset / 50)) / 2
 
-const drawOrbitCanvas = () => {
+const drawOrbitCanvas = (elapsedSeconds = 0) => {
   if (!orbitCanvas) {
     return
   }
@@ -102,8 +104,9 @@ const drawOrbitCanvas = () => {
 
   orbitArcs.forEach((arc) => {
     const radius = radiusFromInset(size, arc.inset)
-    const start = toRadians(arc.start)
-    const end = toRadians(arc.start + arc.length)
+    const angleOffset = reduceMotion.matches ? 0 : elapsedSeconds * arc.degreesPerSecond
+    const start = toRadians(arc.start + angleOffset)
+    const end = toRadians(arc.start + arc.length + angleOffset)
 
     context.beginPath()
     context.setLineDash(arc.dash ?? [])
@@ -117,7 +120,8 @@ const drawOrbitCanvas = () => {
 
   orbitPoints.forEach((point) => {
     const radius = radiusFromInset(size, point.inset)
-    const angle = toRadians(point.angle - 90)
+    const angleOffset = reduceMotion.matches ? 0 : elapsedSeconds * point.degreesPerSecond
+    const angle = toRadians(point.angle + angleOffset - 90)
     const x = Math.cos(angle) * radius
     const y = Math.sin(angle) * radius
     const dotRadius = point.size / 2
@@ -129,6 +133,38 @@ const drawOrbitCanvas = () => {
   })
 
   context.restore()
+}
+
+let orbitAnimationFrame: number | null = null
+let orbitAnimationStartedAt = 0
+
+const stopOrbitAnimation = () => {
+  if (orbitAnimationFrame === null) {
+    return
+  }
+
+  window.cancelAnimationFrame(orbitAnimationFrame)
+  orbitAnimationFrame = null
+}
+
+const renderOrbitAnimation = (timestamp: number) => {
+  drawOrbitCanvas((timestamp - orbitAnimationStartedAt) / 1000)
+
+  if (!reduceMotion.matches) {
+    orbitAnimationFrame = window.requestAnimationFrame(renderOrbitAnimation)
+  }
+}
+
+const startOrbitAnimation = () => {
+  stopOrbitAnimation()
+
+  if (reduceMotion.matches) {
+    drawOrbitCanvas()
+    return
+  }
+
+  orbitAnimationStartedAt = performance.now()
+  orbitAnimationFrame = window.requestAnimationFrame(renderOrbitAnimation)
 }
 
 const alignWordmarkPivot = () => {
@@ -155,16 +191,18 @@ const alignWordmarkPivot = () => {
 
 alignWordmarkPivot()
 window.addEventListener('resize', alignWordmarkPivot)
-window.addEventListener('resize', drawOrbitCanvas)
+window.addEventListener('resize', () => drawOrbitCanvas())
 window.addEventListener('load', alignWordmarkPivot)
-window.addEventListener('load', drawOrbitCanvas)
+window.addEventListener('load', startOrbitAnimation)
 document.fonts.ready.then(alignWordmarkPivot)
 
 if (orbitCanvas) {
-  const orbitCanvasObserver = new ResizeObserver(drawOrbitCanvas)
+  const orbitCanvasObserver = new ResizeObserver(() => drawOrbitCanvas())
   orbitCanvasObserver.observe(orbitCanvas)
-  drawOrbitCanvas()
+  startOrbitAnimation()
 }
+
+reduceMotion.addEventListener('change', startOrbitAnimation)
 
 if (plane && !reduceMotion.matches) {
   const rotationX = springValue(0 as number, { stiffness: 90, damping: 18, mass: 0.9 })
