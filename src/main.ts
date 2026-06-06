@@ -5,8 +5,131 @@ const identityStage = document.querySelector<HTMLElement>('.identity-stage')
 const logoAnchor = document.querySelector<HTMLElement>('[data-logo-anchor]')
 const plane = document.querySelector<HTMLElement>('[data-wordmark-plane]')
 const wordmarkO = document.querySelector<HTMLElement>('[data-wordmark-o]')
+const orbitCanvas = document.querySelector<HTMLCanvasElement>('[data-orbit-canvas]')
 const technicalLayer = document.querySelector<SVGElement>('.poster-technical-layer')
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+
+type OrbitRing = {
+  inset: number
+  alpha: number
+  width: number
+  dash?: number[]
+}
+
+type OrbitArc = {
+  inset: number
+  alpha: number
+  width: number
+  start: number
+  length: number
+  dash?: number[]
+}
+
+type OrbitPoint = {
+  inset: number
+  angle: number
+  size: number
+  alpha: number
+}
+
+const orbitRings: OrbitRing[] = [
+  { inset: 0, alpha: 0.16, width: 1 },
+  { inset: 8, alpha: 0.2, width: 1, dash: [7, 8] },
+  { inset: 15, alpha: 0.28, width: 0.75 },
+  { inset: 22, alpha: 0.34, width: 0.85 },
+  { inset: 29, alpha: 0.42, width: 1.2 },
+]
+
+const orbitArcs: OrbitArc[] = [
+  { inset: 4, alpha: 0.56, width: 1.15, start: 252, length: 168 },
+  { inset: 12, alpha: 0.62, width: 1.15, start: 292, length: 156 },
+  { inset: 19, alpha: 0.44, width: 1, start: 34, length: 136 },
+  { inset: 26, alpha: 0.5, width: 1, start: 118, length: 146, dash: [5, 6] },
+]
+
+const orbitPoints: OrbitPoint[] = [
+  { inset: 0, angle: 312, size: 7, alpha: 0.74 },
+  { inset: 8, angle: 132, size: 7, alpha: 0.86 },
+  { inset: 15, angle: 246, size: 8, alpha: 0.78 },
+  { inset: 22, angle: 34, size: 6, alpha: 0.7 },
+  { inset: 29, angle: 78, size: 7, alpha: 0.76 },
+]
+
+const toRadians = (degrees: number) => (degrees * Math.PI) / 180
+const radiusFromInset = (size: number, inset: number) => (size * (1 - inset / 50)) / 2
+
+const drawOrbitCanvas = () => {
+  if (!orbitCanvas) {
+    return
+  }
+
+  const rect = orbitCanvas.getBoundingClientRect()
+  const size = Math.min(rect.width, rect.height)
+
+  if (size <= 0) {
+    return
+  }
+
+  const pixelRatio = Math.min(window.devicePixelRatio || 1, 2)
+  const targetSize = Math.round(size * pixelRatio)
+
+  if (orbitCanvas.width !== targetSize || orbitCanvas.height !== targetSize) {
+    orbitCanvas.width = targetSize
+    orbitCanvas.height = targetSize
+  }
+
+  const context = orbitCanvas.getContext('2d')
+
+  if (!context) {
+    return
+  }
+
+  context.clearRect(0, 0, orbitCanvas.width, orbitCanvas.height)
+  context.save()
+  context.scale(pixelRatio, pixelRatio)
+  context.translate(size / 2, size / 2)
+  context.lineCap = 'round'
+  context.lineJoin = 'round'
+
+  orbitRings.forEach((ring) => {
+    context.beginPath()
+    context.setLineDash(ring.dash ?? [])
+    context.strokeStyle = `rgba(255, 255, 255, ${ring.alpha})`
+    context.lineWidth = ring.width
+    context.arc(0, 0, radiusFromInset(size, ring.inset), 0, Math.PI * 2)
+    context.stroke()
+  })
+
+  orbitArcs.forEach((arc) => {
+    const radius = radiusFromInset(size, arc.inset)
+    const start = toRadians(arc.start)
+    const end = toRadians(arc.start + arc.length)
+
+    context.beginPath()
+    context.setLineDash(arc.dash ?? [])
+    context.strokeStyle = `rgba(255, 255, 255, ${arc.alpha})`
+    context.lineWidth = arc.width
+    context.arc(0, 0, radius, start, end)
+    context.stroke()
+  })
+
+  context.setLineDash([])
+
+  orbitPoints.forEach((point) => {
+    const radius = radiusFromInset(size, point.inset)
+    const angle = toRadians(point.angle - 90)
+    const x = Math.cos(angle) * radius
+    const y = Math.sin(angle) * radius
+    const dotRadius = point.size / 2
+
+    context.beginPath()
+    context.fillStyle = `rgba(255, 255, 255, ${point.alpha})`
+    context.arc(x, y, dotRadius, 0, Math.PI * 2)
+    context.fill()
+  })
+
+  context.restore()
+}
 
 const alignWordmarkPivot = () => {
   if (!identityStage || !logoAnchor || !plane || !wordmarkO) {
@@ -32,8 +155,16 @@ const alignWordmarkPivot = () => {
 
 alignWordmarkPivot()
 window.addEventListener('resize', alignWordmarkPivot)
+window.addEventListener('resize', drawOrbitCanvas)
 window.addEventListener('load', alignWordmarkPivot)
+window.addEventListener('load', drawOrbitCanvas)
 document.fonts.ready.then(alignWordmarkPivot)
+
+if (orbitCanvas) {
+  const orbitCanvasObserver = new ResizeObserver(drawOrbitCanvas)
+  orbitCanvasObserver.observe(orbitCanvas)
+  drawOrbitCanvas()
+}
 
 if (plane && !reduceMotion.matches) {
   const rotationX = springValue(0 as number, { stiffness: 90, damping: 18, mass: 0.9 })
