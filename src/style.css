@@ -217,7 +217,7 @@
     top: var(--wordmark-pivot-y);
     left: var(--wordmark-pivot-x);
     z-index: 1;
-    width: clamp(190px, 25vw, 380px);
+    width: clamp(320px, 42vw, 630px);
     aspect-ratio: 1;
     pointer-events: none;
     transform: translate3d(-50%, -50%, -18px);
@@ -239,52 +239,33 @@
   }
 
   .orbit-ring-1 {
-    --inset: 2%;
-    --alpha: 0.22;
+    --inset: 0%;
+    --alpha: 0.16;
   }
 
   .orbit-ring-2 {
-    --inset: 9%;
-    --alpha: 0.32;
+    --inset: 8%;
+    --alpha: 0.2;
     border-style: dashed;
     border-width: 1px;
   }
 
   .orbit-ring-3 {
     --inset: 15%;
-    --alpha: 0.3;
+    --alpha: 0.28;
     border-width: 0.5px;
   }
 
   .orbit-ring-4 {
     --inset: 22%;
-    --alpha: 0.46;
+    --alpha: 0.36;
     border-style: dotted;
   }
 
   .orbit-ring-5 {
     --inset: 29%;
-    --alpha: 0.34;
+    --alpha: 0.42;
     border-width: 1.2px;
-  }
-
-  .orbit-ring-6 {
-    --inset: 36%;
-    --alpha: 0.4;
-    border-style: dashed;
-  }
-
-  .orbit-ring-7 {
-    --inset: 43%;
-    --alpha: 0.28;
-    border-style: dotted;
-    border-width: 1.4px;
-  }
-
-  .orbit-ring-8 {
-    --inset: 49%;
-    --alpha: 0.2;
-    border-width: 0.5px;
   }
 
   .orbit-arc {
@@ -296,19 +277,19 @@
   }
 
   .orbit-arc-1 {
-    --inset: 5%;
+    --inset: 4%;
     --alpha: 0.56;
     --angle: 28deg;
   }
 
   .orbit-arc-2 {
-    --inset: 26%;
+    --inset: 12%;
     --alpha: 0.62;
     --angle: -68deg;
   }
 
   .orbit-arc-3 {
-    --inset: 14%;
+    --inset: 19%;
     --alpha: 0.44;
     --angle: 148deg;
     border-right-color: transparent;
@@ -316,7 +297,7 @@
   }
 
   .orbit-arc-4 {
-    --inset: 38%;
+    --inset: 26%;
     --alpha: 0.5;
     --angle: -154deg;
     border-top-style: dashed;
@@ -335,28 +316,28 @@
 
   .orbit-point-1 {
     --angle: 34deg;
-    --radius: clamp(84px, 11.8vw, 176px);
+    --radius: clamp(118px, 17vw, 252px);
     --size: 5px;
     --alpha: 0.74;
   }
 
   .orbit-point-2 {
     --angle: 132deg;
-    --radius: clamp(68px, 9.2vw, 142px);
+    --radius: clamp(98px, 14.4vw, 216px);
     --size: 6px;
     --alpha: 0.86;
   }
 
   .orbit-point-3 {
     --angle: 246deg;
-    --radius: clamp(76px, 10.5vw, 158px);
+    --radius: clamp(106px, 15.4vw, 232px);
     --size: 4px;
     --alpha: 0.78;
   }
 
   .orbit-point-4 {
     --angle: 310deg;
-    --radius: clamp(48px, 6.4vw, 96px);
+    --radius: clamp(76px, 10vw, 148px);
     --size: 4px;
     --alpha: 0.7;
   }
@@ -712,6 +693,10 @@
 
   .wordmark-gap {
     width: 54px;
+  }
+
+  .wordmark-orbits {
+    width: clamp(190px, 68vw, 280px);
   }
 
   .games-word {
