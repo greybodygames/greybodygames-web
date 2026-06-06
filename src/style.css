@@ -174,7 +174,7 @@
     height: min(70svh, 680px);
     transform: translate(-50%, -50%);
     perspective: 900px;
-    perspective-origin: 50% 50%;
+    perspective-origin: var(--logo-left) var(--logo-top);
   }
 
   .logo-anchor {
