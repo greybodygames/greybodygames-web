@@ -1,9 +1,28 @@
 import './style.css'
 import { animate, springValue } from 'motion'
 
+const identityStage = document.querySelector<HTMLElement>('.identity-stage')
+const logoAnchor = document.querySelector<HTMLElement>('[data-logo-anchor]')
 const plane = document.querySelector<HTMLElement>('[data-wordmark-plane]')
+const wordmarkO = document.querySelector<HTMLElement>('[data-wordmark-o]')
 const technicalLayer = document.querySelector<SVGElement>('.poster-technical-layer')
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+
+const alignLogoToWordmark = () => {
+  if (!identityStage || !logoAnchor || !wordmarkO) {
+    return
+  }
+
+  const stageRect = identityStage.getBoundingClientRect()
+  const wordmarkORect = wordmarkO.getBoundingClientRect()
+
+  identityStage.style.setProperty('--logo-left', `${wordmarkORect.left - stageRect.left + wordmarkORect.width / 2}px`)
+  identityStage.style.setProperty('--logo-top', `${wordmarkORect.top - stageRect.top + wordmarkORect.height / 2}px`)
+}
+
+alignLogoToWordmark()
+window.addEventListener('resize', alignLogoToWordmark)
+document.fonts.ready.then(alignLogoToWordmark)
 
 if (plane && !reduceMotion.matches) {
   const rotationX = springValue(0 as number, { stiffness: 90, damping: 18, mass: 0.9 })
@@ -63,6 +82,7 @@ if (plane && !reduceMotion.matches) {
   window.addEventListener('pointermove', setTargets, { passive: true })
   window.addEventListener('pointerleave', resetTargets)
   render()
+  alignLogoToWordmark()
 
   reduceMotion.addEventListener('change', () => {
     unsubscribe.forEach((stop) => stop())
