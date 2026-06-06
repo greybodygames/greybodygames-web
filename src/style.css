@@ -173,7 +173,7 @@
     width: clamp(320px, 42vw, 630px);
     aspect-ratio: 1;
     pointer-events: none;
-    transform: translate3d(-50%, -50%, -18px);
+    transform: translate3d(-50%, -50%, -25px);
     transform-style: preserve-3d;
   }
 
