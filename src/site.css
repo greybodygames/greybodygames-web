@@ -1,0 +1,463 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --color-body: #050505;
+  --color-ink: #f2f2f2;
+  --color-muted: #a7a7a7;
+  --color-faint: #666666;
+  --color-line: rgba(255, 255, 255, 0.16);
+}
+
+@font-face {
+  font-family: "GreyBody Display";
+  src: url("/assets/greybody-display.woff") format("woff");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    background: #050505;
+    font-family: var(--font-sans);
+    letter-spacing: 0;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    min-width: 320px;
+    min-height: 100%;
+    margin: 0;
+    overflow-x: hidden;
+    color: var(--color-ink);
+    background: var(--color-body);
+  }
+
+  body::selection {
+    color: #050505;
+    background: #f2f2f2;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  h1,
+  p {
+    margin: 0;
+  }
+}
+
+@layer components {
+  .poster {
+    position: relative;
+    display: grid;
+    width: 100%;
+    min-height: 100svh;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 46% 48%, rgba(255, 255, 255, 0.08), transparent 13rem),
+      radial-gradient(circle at 15% 16%, rgba(255, 255, 255, 0.045), transparent 24rem),
+      linear-gradient(135deg, #050505 0%, #080808 46%, #101010 100%);
+    isolation: isolate;
+  }
+
+  .poster-noise,
+  .poster-grid {
+    position: absolute;
+    inset: -8%;
+    pointer-events: none;
+  }
+
+  .poster-noise {
+    z-index: -2;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.018) 0,
+      rgba(255, 255, 255, 0.018) 1px,
+      transparent 1px,
+      transparent 6px
+    );
+    opacity: 0.7;
+  }
+
+  .poster-grid {
+    z-index: -3;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.024) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+    background-size: 52px 52px;
+    mask-image: radial-gradient(circle at 48% 46%, rgba(0, 0, 0, 0.75), transparent 70%);
+  }
+
+  .identity-stage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(86vw, 1180px);
+    height: min(70svh, 680px);
+    transform: translate(-50%, -50%);
+    perspective: 900px;
+    perspective-origin: 50% 50%;
+  }
+
+  .brand-orbit {
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    width: clamp(160px, 18vw, 260px);
+    aspect-ratio: 1;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .brand-orbit span {
+    position: absolute;
+    inset: 18%;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 50%;
+  }
+
+  .brand-orbit span:last-child {
+    inset: -18%;
+    clip-path: polygon(0 0, 68% 0, 68% 100%, 0 100%);
+    border-color: rgba(255, 255, 255, 0.19);
+  }
+
+  .logo-anchor {
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    z-index: 3;
+    display: grid;
+    width: clamp(82px, 9vw, 130px);
+    aspect-ratio: 1;
+    place-items: center;
+    transform: translate(-50%, -50%);
+  }
+
+  .logo-anchor img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    filter:
+      drop-shadow(0 14px 28px rgba(0, 0, 0, 0.62))
+      drop-shadow(0 0 16px rgba(255, 255, 255, 0.2));
+  }
+
+  .wordmark {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    transform-style: preserve-3d;
+  }
+
+  .wordmark-plane {
+    display: grid;
+    place-items: center;
+    transform-origin: 69% 45%;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+
+  .wordmark-line {
+    display: grid;
+    grid-template-columns: auto clamp(82px, 9vw, 130px) auto;
+    align-items: center;
+    transform-style: preserve-3d;
+  }
+
+  .wordmark-fragment {
+    color: var(--color-ink);
+    font-family: "GreyBody Display", Impact, sans-serif;
+    font-size: clamp(4.2rem, 10.8vw, 10.5rem);
+    line-height: 0.82;
+    text-transform: uppercase;
+    text-shadow: 0 0 18px rgba(255, 255, 255, 0.12);
+    white-space: nowrap;
+  }
+
+  .wordmark-left {
+    transform: translateZ(8px);
+  }
+
+  .wordmark-right {
+    transform: translateZ(12px);
+  }
+
+  .wordmark-gap {
+    display: block;
+    width: clamp(82px, 9vw, 130px);
+    height: 1px;
+  }
+
+  .games-word {
+    display: flex;
+    justify-content: center;
+    gap: clamp(0.28rem, 1.15vw, 0.8rem);
+    margin-top: clamp(0.32rem, 1vw, 0.72rem);
+    color: #f4f4f4;
+    font-family: var(--font-sans);
+    font-size: clamp(1rem, 2vw, 1.7rem);
+    font-weight: 900;
+    line-height: 1;
+    text-transform: uppercase;
+    transform: translateZ(20px);
+  }
+
+  .annotation {
+    position: absolute;
+    z-index: 4;
+    display: grid;
+    grid-template-columns: 2.2rem minmax(0, 1fr);
+    gap: 1rem;
+    width: 100%;
+    max-width: min(28rem, 32vw);
+    color: #dddddd;
+  }
+
+  .annotation > div {
+    min-width: 0;
+  }
+
+  .annotation::before {
+    position: absolute;
+    top: -1.05rem;
+    left: 0;
+    width: min(18vw, 15rem);
+    height: 1px;
+    content: "";
+    background: rgba(255, 255, 255, 0.22);
+  }
+
+  .annotation-index,
+  .annotation-label {
+    color: var(--color-faint);
+    font-size: 0.72rem;
+    font-weight: 850;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .annotation-work {
+    right: clamp(1.4rem, 5vw, 5.5rem);
+    bottom: clamp(2.6rem, 8vh, 5.8rem);
+  }
+
+  .annotation-work a {
+    display: grid;
+    gap: 0.42rem;
+  }
+
+  .annotation-work a span:first-child {
+    color: #f5f5f5;
+    font-size: clamp(1.5rem, 2.8vw, 2.65rem);
+    font-weight: 900;
+    line-height: 0.95;
+  }
+
+  .annotation-work a span:last-child,
+  .annotation-about p {
+    color: #cfcfcf;
+    font-size: clamp(0.92rem, 1.15vw, 1.08rem);
+    line-height: 1.55;
+    overflow-wrap: break-word;
+  }
+
+  .annotation-about {
+    top: clamp(2rem, 8vh, 5.4rem);
+    right: clamp(1.4rem, 5vw, 5.5rem);
+  }
+
+  .annotation-socials {
+    bottom: clamp(2rem, 6vh, 4.8rem);
+    left: clamp(1.4rem, 5vw, 5.5rem);
+    max-width: 24rem;
+  }
+
+  .social-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem 1.1rem;
+  }
+
+  .social-list a {
+    color: #eeeeee;
+    font-size: clamp(1rem, 1.4vw, 1.28rem);
+    font-weight: 850;
+    line-height: 1;
+    transition:
+      color 160ms ease,
+      transform 160ms ease;
+  }
+
+  .social-list a:hover,
+  .social-list a:focus-visible,
+  .annotation-work a:hover,
+  .annotation-work a:focus-visible {
+    color: #ffffff;
+    outline: none;
+    transform: translateY(-1px);
+  }
+
+  .poster-credit {
+    position: absolute;
+    top: 50%;
+    left: clamp(1.1rem, 3vw, 2.3rem);
+    z-index: 4;
+    color: var(--color-faint);
+    font-size: 0.72rem;
+    font-weight: 750;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transform: translateY(-50%) rotate(-90deg);
+    transform-origin: left center;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+@media (max-width: 980px) {
+  .poster {
+    min-height: auto;
+    overflow: visible;
+    padding: 2rem 1.35rem 2.6rem;
+  }
+
+  .identity-stage {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: clamp(22rem, 58vh, 34rem);
+    margin: 0 auto 2.6rem;
+    transform: none;
+    perspective: 1200px;
+  }
+
+  .brand-orbit,
+  .logo-anchor {
+    left: 60%;
+  }
+
+  .wordmark-line {
+    grid-template-columns: auto clamp(72px, 13vw, 112px) auto;
+  }
+
+  .wordmark-fragment {
+    font-size: clamp(2.7rem, 13vw, 6.4rem);
+  }
+
+  .wordmark-gap {
+    width: clamp(72px, 13vw, 112px);
+  }
+
+  .annotation {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    max-width: 42rem;
+    margin: 0;
+    padding: 1.35rem 0;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .annotation::before {
+    display: none;
+  }
+
+  .annotation + .annotation {
+    margin-top: 0.2rem;
+  }
+
+  .annotation-socials {
+    max-width: 42rem;
+  }
+
+  .poster-credit {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-top: 1.8rem;
+    transform: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .poster {
+    padding-inline: 1rem;
+  }
+
+  .identity-stage {
+    height: 17rem;
+    margin-bottom: 1.6rem;
+  }
+
+  .brand-orbit {
+    width: 86px;
+  }
+
+  .logo-anchor {
+    width: 54px;
+  }
+
+  .wordmark-line {
+    grid-template-columns: auto 54px auto;
+  }
+
+  .wordmark-fragment {
+    font-size: clamp(1.42rem, 8.6vw, 2.1rem);
+  }
+
+  .wordmark-gap {
+    width: 54px;
+  }
+
+  .games-word {
+    justify-content: center;
+    gap: 0.34rem;
+    font-size: 0.86rem;
+  }
+
+  .annotation {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+    width: calc(100vw - 2rem);
+    max-width: calc(100vw - 2rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

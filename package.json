@@ -1,25 +1,31 @@
 {
   "name": "greybodygames-web",
-  "version": "1.0.0",
+  "private": true,
+  "version": "0.0.0",
   "description": "Static portfolio site for Greybody Games.",
+  "type": "module",
   "scripts": {
-    "build": "tailwindcss -i ./src/input.css -o ./styles.css --minify",
-    "dev": "tailwindcss -i ./src/input.css -o ./styles.css --watch"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/greybodygames/web.git"
   },
-  "keywords": [],
   "author": "Sayak Mukhopadhyay",
   "license": "UNLICENSED",
-  "private": true,
   "bugs": {
     "url": "https://github.com/greybodygames/web/issues"
   },
   "homepage": "https://greybodygames.com",
   "devDependencies": {
-    "@tailwindcss/cli": "^4.3.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.0.12"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.0",
+    "motion": "^12.40.0",
     "tailwindcss": "^4.3.0"
   }
 }

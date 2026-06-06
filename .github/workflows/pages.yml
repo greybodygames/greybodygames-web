@@ -35,16 +35,6 @@ jobs:
       - name: Build site
         run: npm run build
 
-      - name: Prepare Pages artifact
-        run: |
-          mkdir -p dist
-          cp index.html dist/
-          cp script.js dist/
-          cp styles.css dist/
-          cp CNAME dist/
-          cp -R assets dist/
-          touch dist/.nojekyll
-
       - name: Configure Pages
         uses: actions/configure-pages@v6
 
