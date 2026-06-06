@@ -6,8 +6,16 @@ const logoAnchor = document.querySelector<HTMLElement>('[data-logo-anchor]')
 const plane = document.querySelector<HTMLElement>('[data-wordmark-plane]')
 const wordmarkO = document.querySelector<HTMLElement>('[data-wordmark-o]')
 const orbitCanvas = document.querySelector<HTMLCanvasElement>('[data-orbit-canvas]')
-const technicalLayer = document.querySelector<SVGElement>('.poster-technical-layer')
+const starfieldCanvas = document.querySelector<HTMLCanvasElement>('[data-starfield-canvas]')
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+
+type Star = {
+  x: number
+  y: number
+  radius: number
+  alpha: number
+  depth: number
+}
 
 type OrbitRing = {
   inset: number
@@ -34,6 +42,41 @@ type OrbitPoint = {
   degreesPerSecond: number
 }
 
+const createSeededRandom = (seed: number) => {
+  let value = seed
+
+  return () => {
+    value |= 0
+    value = (value + 0x6d2b79f5) | 0
+
+    let result = Math.imul(value ^ (value >>> 15), 1 | value)
+    result = (result + Math.imul(result ^ (result >>> 7), 61 | result)) ^ result
+
+    return ((result ^ (result >>> 14)) >>> 0) / 4294967296
+  }
+}
+
+const createStarfield = (count: number) => {
+  const random = createSeededRandom(0x9e3779b9)
+
+  return Array.from({ length: count }, (): Star => {
+    const depth = 0.28 + random() * 0.9
+    const brightness = random()
+
+    return {
+      x: random(),
+      y: random(),
+      radius: 0.45 + random() * random() * 1.45,
+      alpha: 0.18 + brightness * brightness * 0.62,
+      depth,
+    }
+  })
+}
+
+const stars = createStarfield(210)
+let starfieldParallaxX = 0
+let starfieldParallaxY = 0
+
 const orbitRings: OrbitRing[] = [
   { inset: 0, alpha: 0.16, width: 1 },
   { inset: 8, alpha: 0.2, width: 1, dash: [7, 8] },
@@ -59,6 +102,52 @@ const orbitPoints: OrbitPoint[] = [
 
 const toRadians = (degrees: number) => (degrees * Math.PI) / 180
 const radiusFromInset = (size: number, inset: number) => (size * (1 - inset / 50)) / 2
+const wrapCoordinate = (value: number, size: number) => ((value % size) + size) % size
+
+const drawStarfieldCanvas = () => {
+  if (!starfieldCanvas) {
+    return
+  }
+
+  const rect = starfieldCanvas.getBoundingClientRect()
+  const width = rect.width
+  const height = rect.height
+
+  if (width <= 0 || height <= 0) {
+    return
+  }
+
+  const pixelRatio = Math.min(window.devicePixelRatio || 1, 2)
+  const targetWidth = Math.round(width * pixelRatio)
+  const targetHeight = Math.round(height * pixelRatio)
+
+  if (starfieldCanvas.width !== targetWidth || starfieldCanvas.height !== targetHeight) {
+    starfieldCanvas.width = targetWidth
+    starfieldCanvas.height = targetHeight
+  }
+
+  const context = starfieldCanvas.getContext('2d')
+
+  if (!context) {
+    return
+  }
+
+  context.clearRect(0, 0, starfieldCanvas.width, starfieldCanvas.height)
+  context.save()
+  context.scale(pixelRatio, pixelRatio)
+
+  stars.forEach((star) => {
+    const x = wrapCoordinate(star.x * width + starfieldParallaxX * star.depth, width)
+    const y = wrapCoordinate(star.y * height + starfieldParallaxY * star.depth, height)
+
+    context.beginPath()
+    context.fillStyle = `rgba(255, 255, 255, ${star.alpha})`
+    context.arc(x, y, star.radius, 0, Math.PI * 2)
+    context.fill()
+  })
+
+  context.restore()
+}
 
 const drawOrbitCanvas = (elapsedSeconds = 0) => {
   if (!orbitCanvas) {
@@ -191,10 +280,22 @@ const alignWordmarkPivot = () => {
 
 alignWordmarkPivot()
 window.addEventListener('resize', alignWordmarkPivot)
-window.addEventListener('resize', () => drawOrbitCanvas())
+window.addEventListener('resize', () => {
+  drawOrbitCanvas()
+  drawStarfieldCanvas()
+})
 window.addEventListener('load', alignWordmarkPivot)
-window.addEventListener('load', startOrbitAnimation)
+window.addEventListener('load', () => {
+  drawStarfieldCanvas()
+  startOrbitAnimation()
+})
 document.fonts.ready.then(alignWordmarkPivot)
+
+if (starfieldCanvas) {
+  const starfieldCanvasObserver = new ResizeObserver(drawStarfieldCanvas)
+  starfieldCanvasObserver.observe(starfieldCanvas)
+  drawStarfieldCanvas()
+}
 
 if (orbitCanvas) {
   const orbitCanvasObserver = new ResizeObserver(() => drawOrbitCanvas())
@@ -240,9 +341,10 @@ if (plane && !reduceMotion.matches) {
     translateY.set(y * shiftScale)
     translateZ.set((Math.abs(x) + Math.abs(y)) * 42)
 
-    if (technicalLayer) {
-      technicalLayer.style.setProperty('--parallax-x', `${(x * -16).toFixed(2)}px`)
-      technicalLayer.style.setProperty('--parallax-y', `${(y * -12).toFixed(2)}px`)
+    if (starfieldCanvas) {
+      starfieldParallaxX = x * -28
+      starfieldParallaxY = y * -18
+      drawStarfieldCanvas()
     }
   }
 
@@ -253,9 +355,10 @@ if (plane && !reduceMotion.matches) {
     translateY.set(0)
     translateZ.set(0)
 
-    if (technicalLayer) {
-      technicalLayer.style.setProperty('--parallax-x', '0px')
-      technicalLayer.style.setProperty('--parallax-y', '0px')
+    if (starfieldCanvas) {
+      starfieldParallaxX = 0
+      starfieldParallaxY = 0
+      drawStarfieldCanvas()
     }
   }
 

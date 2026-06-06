@@ -73,7 +73,7 @@
 
   .poster-noise,
   .poster-grid,
-  .poster-technical-layer {
+  .poster-starfield {
     position: absolute;
     inset: -8%;
     pointer-events: none;
@@ -100,65 +100,12 @@
     mask-image: radial-gradient(circle at 48% 46%, rgba(0, 0, 0, 0.75), transparent 70%);
   }
 
-  .poster-technical-layer {
+  .poster-starfield {
     z-index: 1;
     width: 116%;
     height: 116%;
-    overflow: visible;
-    color: rgba(255, 255, 255, 0.82);
-    opacity: 0.94;
-    transform: translate3d(var(--parallax-x, 0), var(--parallax-y, 0), 0);
-    transition: transform 220ms ease-out;
-  }
-
-  .poster-technical-layer line,
-  .poster-technical-layer path,
-  .poster-technical-layer circle {
-    fill: none;
-    stroke: currentColor;
-    vector-effect: non-scaling-stroke;
-  }
-
-  .tech-connectors {
-    color: rgba(255, 255, 255, 0.7);
-  }
-
-  .tech-connectors path {
-    stroke-width: 0.9;
-  }
-
-  .tech-connectors circle {
-    fill: #050505;
-    stroke-width: 1.15;
-  }
-
-  .tech-crosshair {
-    color: rgba(255, 255, 255, 0.68);
-  }
-
-  .tech-crosshair line {
-    stroke-width: 0.82;
-  }
-
-  .tech-crosshair circle {
-    stroke-width: 0.9;
-  }
-
-  .tech-crosshair-primary {
-    opacity: 0.9;
-  }
-
-  .tech-crosshair-secondary {
-    opacity: 0.66;
-  }
-
-  .tech-points {
-    color: rgba(255, 255, 255, 0.78);
-  }
-
-  .tech-points circle {
-    fill: currentColor;
-    stroke: none;
+    display: block;
+    opacity: 0.86;
   }
 
   .identity-stage {
@@ -513,18 +460,12 @@
     max-width: 42rem;
   }
 
-  .poster-technical-layer {
+  .poster-starfield {
     inset: 0;
     display: block;
     width: 100%;
     height: 34rem;
     opacity: 0.28;
-    transform: none;
-  }
-
-  .tech-connectors,
-  .tech-crosshair-secondary {
-    display: none;
   }
 
   .social-list {

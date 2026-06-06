@@ -15,54 +15,7 @@
     <main class="poster" id="top">
       <div class="poster-noise" aria-hidden="true"></div>
       <div class="poster-grid" aria-hidden="true"></div>
-      <svg class="poster-technical-layer" viewBox="0 0 1600 1000" preserveAspectRatio="none" aria-hidden="true">
-        <defs>
-          <radialGradient id="ring-fade" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="white" stop-opacity="0.28" />
-            <stop offset="68%" stop-color="white" stop-opacity="0.12" />
-            <stop offset="100%" stop-color="white" stop-opacity="0" />
-          </radialGradient>
-        </defs>
-
-        <g class="tech-crosshair tech-crosshair-primary">
-          <line x1="150" y1="88" x2="216" y2="88" />
-          <line x1="183" y1="56" x2="183" y2="124" />
-          <circle cx="183" cy="88" r="13" />
-          <circle cx="183" cy="88" r="3" />
-        </g>
-
-        <g class="tech-crosshair tech-crosshair-secondary">
-          <line x1="1390" y1="712" x2="1478" y2="712" />
-          <line x1="1434" y1="668" x2="1434" y2="756" />
-          <circle cx="1434" cy="712" r="15" />
-          <circle cx="1434" cy="712" r="4" />
-        </g>
-
-        <g class="tech-connectors">
-          <path d="M1196 196 1076 342" />
-          <circle cx="1196" cy="196" r="5" />
-          <circle cx="1076" cy="342" r="3.5" />
-
-          <path d="M600 656 392 708" />
-          <circle cx="600" cy="656" r="5" />
-          <circle cx="392" cy="708" r="3.5" />
-
-          <path d="M236 168 512 294 746 398" />
-          <circle cx="512" cy="294" r="5" />
-          <circle cx="746" cy="398" r="3.5" />
-        </g>
-
-        <g class="tech-points">
-          <circle cx="760" cy="286" r="2.5" />
-          <circle cx="810" cy="412" r="1.5" />
-          <circle cx="1030" cy="584" r="1.5" />
-          <circle cx="1126" cy="392" r="1" />
-          <circle cx="698" cy="520" r="1.5" />
-          <circle cx="914" cy="918" r="1" />
-          <circle cx="934" cy="64" r="1" />
-          <circle cx="1490" cy="172" r="1.5" />
-        </g>
-      </svg>
+      <canvas class="poster-starfield" data-starfield-canvas aria-hidden="true"></canvas>
 
       <section class="identity-stage" aria-labelledby="site-title">
         <a class="logo-anchor" href="#top" aria-label="Greybody Games home" data-logo-anchor>
