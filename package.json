@@ -7,12 +7,15 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "author": "Sayak Mukhopadhyay",
   "license": "UNLICENSED",
   "homepage": "https://greybodygames.com",
   "devDependencies": {
+    "prettier": "3.8.3",
     "typescript": "~6.0.2",
     "vite": "^8.0.12"
   },
