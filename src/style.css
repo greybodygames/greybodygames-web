@@ -173,7 +173,7 @@
     width: clamp(320px, 42vw, 630px);
     aspect-ratio: 1;
     pointer-events: none;
-    transform: translate3d(-50%, -50%, -30px);
+    transform: translate3d(-50%, -50%, -25px);
     transform-style: preserve-3d;
   }
 
@@ -299,16 +299,32 @@
   }
 
   .annotation-about {
+    grid-template-columns: minmax(0, 1fr) 2.2rem;
     bottom: clamp(8.4rem, 17vh, 12rem);
     left: clamp(1.4rem, 4.8vw, 5.5rem);
     max-width: min(26rem, 28vw);
+  }
+
+  .annotation-about .annotation-label {
+    text-align: right;
+  }
+
+  .annotation-about .annotation-label::after {
+    width: 100%;
+    margin-right: 0;
+    margin-left: auto;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.48));
+  }
+
+  .annotation-about .annotation-copy {
+    text-align: justify;
   }
 
   .annotation-socials {
     right: clamp(1.4rem, 4vw, 4rem);
     bottom: clamp(1.35rem, 3.2vh, 2.2rem);
     left: clamp(1.4rem, 4vw, 4rem);
-    grid-template-columns: 1fr;
+    display: block;
     width: auto;
     max-width: none;
   }
@@ -446,6 +462,15 @@
     border-top: 1px solid var(--color-line);
   }
 
+  .annotation-work,
+  .annotation-about {
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    max-width: 42rem;
+  }
+
   .annotation-label::after {
     width: 100%;
     margin: 0.82rem 0 1rem;
@@ -526,13 +551,18 @@
   }
 
   .annotation {
-    gap: 0.65rem;
     width: calc(100vw - 2rem);
     max-width: calc(100vw - 2rem);
   }
 
-  .annotation-socials {
-    grid-template-columns: 1fr;
+  .annotation-work,
+  .annotation-about {
+    width: calc(100vw - 2rem);
+    max-width: calc(100vw - 2rem);
+  }
+
+  .annotation-about {
+    grid-template-columns: minmax(0, 1fr) 2.2rem;
   }
 }
 
