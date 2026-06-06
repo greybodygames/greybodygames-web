@@ -8,21 +8,32 @@ const wordmarkO = document.querySelector<HTMLElement>('[data-wordmark-o]')
 const technicalLayer = document.querySelector<SVGElement>('.poster-technical-layer')
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 
-const alignLogoToWordmark = () => {
-  if (!identityStage || !logoAnchor || !wordmarkO) {
+const alignWordmarkPivot = () => {
+  if (!identityStage || !logoAnchor || !plane || !wordmarkO) {
     return
   }
 
-  const stageRect = identityStage.getBoundingClientRect()
-  const wordmarkORect = wordmarkO.getBoundingClientRect()
+  const currentTransform = plane.style.transform
+  plane.style.transform = 'translate3d(0, 0, 0)'
 
-  identityStage.style.setProperty('--logo-left', `${wordmarkORect.left - stageRect.left + wordmarkORect.width / 2}px`)
-  identityStage.style.setProperty('--logo-top', `${wordmarkORect.top - stageRect.top + wordmarkORect.height / 2}px`)
+  const stageRect = identityStage.getBoundingClientRect()
+  const planeRect = plane.getBoundingClientRect()
+  const wordmarkORect = wordmarkO.getBoundingClientRect()
+  const pivotX = wordmarkORect.left + wordmarkORect.width / 2
+  const pivotY = wordmarkORect.top + wordmarkORect.height / 2
+
+  identityStage.style.setProperty('--logo-left', `${pivotX - stageRect.left}px`)
+  identityStage.style.setProperty('--logo-top', `${pivotY - stageRect.top}px`)
+  plane.style.setProperty('--wordmark-pivot-x', `${pivotX - planeRect.left}px`)
+  plane.style.setProperty('--wordmark-pivot-y', `${pivotY - planeRect.top}px`)
+
+  plane.style.transform = currentTransform
 }
 
-alignLogoToWordmark()
-window.addEventListener('resize', alignLogoToWordmark)
-document.fonts.ready.then(alignLogoToWordmark)
+alignWordmarkPivot()
+window.addEventListener('resize', alignWordmarkPivot)
+window.addEventListener('load', alignWordmarkPivot)
+document.fonts.ready.then(alignWordmarkPivot)
 
 if (plane && !reduceMotion.matches) {
   const rotationX = springValue(0 as number, { stiffness: 90, damping: 18, mass: 0.9 })
@@ -82,7 +93,7 @@ if (plane && !reduceMotion.matches) {
   window.addEventListener('pointermove', setTargets, { passive: true })
   window.addEventListener('pointerleave', resetTargets)
   render()
-  alignLogoToWordmark()
+  alignWordmarkPivot()
 
   reduceMotion.addEventListener('change', () => {
     unsubscribe.forEach((stop) => stop())
