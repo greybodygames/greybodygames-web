@@ -331,28 +331,28 @@
   .orbit-point-1 {
     --inset: 4%;
     --angle: 28deg;
-    --size: 5px;
+    --size: 6px;
     --alpha: 0.74;
   }
 
   .orbit-point-2 {
     --inset: 12%;
     --angle: -68deg;
-    --size: 5px;
+    --size: 6px;
     --alpha: 0.86;
   }
 
   .orbit-point-3 {
     --inset: 19%;
     --angle: 148deg;
-    --size: 6px;
+    --size: 7px;
     --alpha: 0.78;
   }
 
   .orbit-point-4 {
     --inset: 26%;
     --angle: -154deg;
-    --size: 7px;
+    --size: 8px;
     --alpha: 0.7;
   }
 
