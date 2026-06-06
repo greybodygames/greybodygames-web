@@ -253,16 +253,6 @@
     min-width: 0;
   }
 
-  .annotation::before {
-    position: absolute;
-    top: -1.05rem;
-    left: 0;
-    width: min(20vw, 17rem);
-    height: 1px;
-    content: '';
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.48), rgba(255, 255, 255, 0.08));
-  }
-
   .annotation-index,
   .annotation-label {
     color: rgba(255, 255, 255, 0.66);
@@ -271,6 +261,15 @@
     line-height: 1;
     letter-spacing: 0.34em;
     text-transform: uppercase;
+  }
+
+  .annotation-label::after {
+    display: block;
+    width: min(20vw, 17rem);
+    height: 1px;
+    margin: 0.86rem 0 1.1rem;
+    content: '';
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.48), rgba(255, 255, 255, 0.08));
   }
 
   .annotation-work {
@@ -293,7 +292,7 @@
   }
 
   .annotation-work a span:last-child,
-  .annotation-about p {
+  .annotation-about p:not(.annotation-label) {
     color: #cfcfcf;
     font-size: clamp(0.92rem, 1.15vw, 1.08rem);
     line-height: 1.55;
@@ -448,8 +447,9 @@
     border-top: 1px solid var(--color-line);
   }
 
-  .annotation::before {
-    display: none;
+  .annotation-label::after {
+    width: 100%;
+    margin: 0.82rem 0 1rem;
   }
 
   .annotation + .annotation {
@@ -527,10 +527,13 @@
   }
 
   .annotation {
-    grid-template-columns: 1fr;
     gap: 0.65rem;
     width: calc(100vw - 2rem);
     max-width: calc(100vw - 2rem);
+  }
+
+  .annotation-socials {
+    grid-template-columns: 1fr;
   }
 }
 
