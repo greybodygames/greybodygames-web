@@ -2,6 +2,7 @@ import './style.css'
 import { animate, springValue } from 'motion'
 
 const plane = document.querySelector<HTMLElement>('[data-wordmark-plane]')
+const technicalLayer = document.querySelector<SVGElement>('.poster-technical-layer')
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 
 if (plane && !reduceMotion.matches) {
@@ -39,6 +40,11 @@ if (plane && !reduceMotion.matches) {
     translateX.set(x * shiftScale)
     translateY.set(y * shiftScale)
     translateZ.set((Math.abs(x) + Math.abs(y)) * 42)
+
+    if (technicalLayer) {
+      technicalLayer.style.setProperty('--parallax-x', `${(x * -16).toFixed(2)}px`)
+      technicalLayer.style.setProperty('--parallax-y', `${(y * -12).toFixed(2)}px`)
+    }
   }
 
   const resetTargets = () => {
@@ -47,6 +53,11 @@ if (plane && !reduceMotion.matches) {
     translateX.set(0)
     translateY.set(0)
     translateZ.set(0)
+
+    if (technicalLayer) {
+      technicalLayer.style.setProperty('--parallax-x', '0px')
+      technicalLayer.style.setProperty('--parallax-y', '0px')
+    }
   }
 
   window.addEventListener('pointermove', setTargets, { passive: true })
