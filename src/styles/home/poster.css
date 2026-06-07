@@ -58,7 +58,7 @@
       pointer-events: none;
     }
 
-    .poster-credit {
+    .poster-copyright {
       position: absolute;
       top: 50%;
       left: clamp(1.1rem, 3vw, 2.3rem);
