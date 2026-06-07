@@ -251,8 +251,9 @@
   .annotation {
     position: absolute;
     z-index: 5;
+    --annotation-index-size: 2.2rem;
     display: grid;
-    grid-template-columns: 2.2rem minmax(0, 1fr);
+    grid-template-columns: var(--annotation-index-size) minmax(0, 1fr);
     gap: 1rem;
     width: 100%;
     max-width: min(28rem, 32vw);
@@ -275,8 +276,10 @@
 
   .annotation > .annotation-index {
     display: grid;
-    width: 2.2rem;
-    height: 2.2rem;
+    width: var(--annotation-index-size);
+    height: var(--annotation-index-size);
+    margin-block-start: calc((1lh - var(--annotation-index-size)) / 2);
+    align-self: start;
     border: 1px solid rgba(255, 255, 255, 0.46);
     border-radius: 999px;
     place-items: center;
@@ -319,7 +322,7 @@
   }
 
   .annotation-about {
-    grid-template-columns: minmax(0, 1fr) 2.2rem;
+    grid-template-columns: minmax(0, 1fr) var(--annotation-index-size);
     bottom: clamp(8.4rem, 17vh, 12rem);
     left: clamp(1.4rem, 4.8vw, 5.5rem);
     max-width: min(26rem, 28vw);
@@ -582,7 +585,7 @@
   }
 
   .annotation-about {
-    grid-template-columns: minmax(0, 1fr) 2.2rem;
+    grid-template-columns: minmax(0, 1fr) var(--annotation-index-size);
   }
 }
 
