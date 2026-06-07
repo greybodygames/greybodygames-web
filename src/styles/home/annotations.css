@@ -1,0 +1,96 @@
+@layer components {
+  .annotation {
+    position: absolute;
+    z-index: 5;
+    --annotation-index-size: 2.2rem;
+    display: grid;
+    grid-template-columns: var(--annotation-index-size) minmax(0, 1fr);
+    gap: 1rem;
+    width: 100%;
+    max-width: min(28rem, 32vw);
+    color: #dddddd;
+  }
+
+  .annotation-body {
+    min-width: 0;
+  }
+
+  .annotation-index,
+  .annotation-label {
+    color: rgba(255, 255, 255, 0.66);
+    font-size: 0.72rem;
+    font-weight: 850;
+    line-height: 1;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+  }
+
+  .annotation > .annotation-index {
+    display: grid;
+    width: var(--annotation-index-size);
+    height: var(--annotation-index-size);
+    margin-block-start: calc((1lh - var(--annotation-index-size)) / 2);
+    align-self: start;
+    border: 1px solid rgba(255, 255, 255, 0.46);
+    border-radius: 999px;
+    place-items: center;
+    letter-spacing: 0.08em;
+  }
+
+  .annotation-label::after {
+    display: block;
+    width: min(20vw, 17rem);
+    height: 1px;
+    margin: 0.86rem 0 1.1rem;
+    content: '';
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.48), rgba(255, 255, 255, 0.08));
+  }
+
+  .annotation-work {
+    right: clamp(1.4rem, 5vw, 5.5rem);
+    top: clamp(4.6rem, 8vh, 6rem);
+    max-width: min(29rem, 30vw);
+  }
+
+  .annotation-link {
+    display: grid;
+    gap: 0.42rem;
+  }
+
+  .annotation-title {
+    color: #f5f5f5;
+    font-size: clamp(2rem, 3.2vw, 3.55rem);
+    font-weight: 650;
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+  }
+
+  .annotation-copy {
+    color: #cfcfcf;
+    font-size: clamp(0.92rem, 1.15vw, 1.08rem);
+    line-height: 1.55;
+    overflow-wrap: break-word;
+  }
+
+  .annotation-about {
+    grid-template-columns: minmax(0, 1fr) var(--annotation-index-size);
+    bottom: clamp(8.4rem, 17vh, 12rem);
+    left: clamp(1.4rem, 4.8vw, 5.5rem);
+    max-width: min(26rem, 28vw);
+  }
+
+  .annotation-about .annotation-label {
+    text-align: right;
+  }
+
+  .annotation-about .annotation-label::after {
+    width: 100%;
+    margin-right: 0;
+    margin-left: auto;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.48));
+  }
+
+  .annotation-about .annotation-copy {
+    text-align: justify;
+  }
+}

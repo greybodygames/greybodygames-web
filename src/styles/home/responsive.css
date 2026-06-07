@@ -1,0 +1,150 @@
+@media (max-width: 980px) {
+  .poster {
+    min-height: auto;
+    overflow: visible;
+    padding: 2rem 1.35rem 2.6rem;
+  }
+
+  .identity-stage {
+    position: relative;
+    top: auto;
+    left: auto;
+    z-index: 2;
+    --wordmark-size: clamp(2.7rem, 13vw, 6.4rem);
+    width: 100%;
+    height: clamp(22rem, 58vh, 34rem);
+    margin: 0 auto 2.6rem;
+    transform: none;
+    perspective: 1200px;
+  }
+
+  .wordmark-line {
+    grid-template-columns: auto 1em auto;
+  }
+
+  .annotation {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    max-width: 42rem;
+    margin: 0;
+    padding: 1.35rem 0;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .annotation-work,
+  .annotation-about {
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    max-width: 42rem;
+  }
+
+  .annotation-label::after {
+    width: 100%;
+    margin: 0.82rem 0 1rem;
+  }
+
+  .annotation + .annotation {
+    margin-top: 0.2rem;
+  }
+
+  .annotation-socials {
+    max-width: 42rem;
+  }
+
+  .poster-starfield {
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 34rem;
+    opacity: 0.28;
+  }
+
+  .social-list {
+    grid-template-columns: 1fr;
+    border-top: 0;
+  }
+
+  .social-list a {
+    min-height: 3.4rem;
+    padding: 1.05rem 0 0.2rem;
+    font-size: clamp(1.7rem, 8vw, 3.2rem);
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+  }
+
+  .social-list a + a {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .social-list a:nth-child(2)::before,
+  .social-list a:nth-child(3)::before {
+    left: 0;
+  }
+
+  .poster-credit {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-top: 1.8rem;
+    transform: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .poster {
+    padding-inline: 1rem;
+  }
+
+  .identity-stage {
+    --wordmark-size: clamp(1.42rem, 8.6vw, 2.1rem);
+    height: 17rem;
+    margin-bottom: 1.6rem;
+  }
+
+  .logo-anchor {
+    width: var(--logo-size);
+  }
+
+  .wordmark-line {
+    grid-template-columns: auto 1em auto;
+  }
+
+  .wordmark-orbits {
+    width: clamp(190px, 68vw, 280px);
+  }
+
+  .games-word {
+    font-size: 0.86rem;
+  }
+
+  .annotation {
+    width: calc(100vw - 2rem);
+    max-width: calc(100vw - 2rem);
+  }
+
+  .annotation-work,
+  .annotation-about {
+    width: calc(100vw - 2rem);
+    max-width: calc(100vw - 2rem);
+  }
+
+  .annotation-about {
+    grid-template-columns: minmax(0, 1fr) var(--annotation-index-size);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

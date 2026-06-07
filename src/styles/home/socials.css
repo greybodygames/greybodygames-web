@@ -1,0 +1,80 @@
+@layer components {
+  .annotation-socials {
+    right: clamp(1.4rem, 4vw, 4rem);
+    bottom: clamp(1.35rem, 3.2vh, 2.2rem);
+    left: clamp(1.4rem, 4vw, 4rem);
+    display: block;
+    width: auto;
+    max-width: none;
+  }
+
+  .social-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .social-list a {
+    position: relative;
+    display: flex;
+    min-height: 5.25rem;
+    align-items: end;
+    justify-content: space-between;
+    padding: 1.05rem clamp(1.2rem, 3.6vw, 3.4rem) 0.1rem 0;
+    color: #eeeeee;
+    font-size: clamp(2rem, 3.8vw, 4rem);
+    font-weight: 420;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    transition:
+      color 160ms ease,
+      transform 160ms ease;
+  }
+
+  .social-list a + a {
+    padding-left: clamp(1.2rem, 3vw, 3rem);
+    border-left: 1px solid rgba(255, 255, 255, 0.16);
+  }
+
+  .social-list a::before {
+    position: absolute;
+    top: 0.72rem;
+    left: 0;
+    color: rgba(255, 255, 255, 0.66);
+    font-size: 0.72rem;
+    font-weight: 850;
+    letter-spacing: 0.2em;
+  }
+
+  .social-list a:nth-child(1)::before {
+    content: '01';
+  }
+
+  .social-list a:nth-child(2)::before {
+    content: '02';
+    left: clamp(1.2rem, 3vw, 3rem);
+  }
+
+  .social-list a:nth-child(3)::before {
+    content: '03';
+    left: clamp(1.2rem, 3vw, 3rem);
+  }
+
+  .social-list a::after {
+    content: '\2197';
+    color: rgba(255, 255, 255, 0.74);
+    font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+    font-weight: 300;
+    line-height: 0.9;
+  }
+
+  .social-list a:hover,
+  .social-list a:focus-visible,
+  .annotation-link:hover,
+  .annotation-link:focus-visible {
+    color: #ffffff;
+    outline: none;
+    transform: translateY(-1px);
+  }
+}
