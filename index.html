@@ -12,10 +12,7 @@
     <meta name="theme-color" content="#050505" />
   </head>
   <body>
-    <main
-      class="poster relative isolate block min-h-svh w-full overflow-hidden p-0 max-[980px]:min-h-auto max-[980px]:overflow-visible max-[980px]:p-[2rem_1.35rem_1rem] max-[620px]:min-h-screen max-[620px]:px-4"
-      id="top"
-    >
+    <main class="poster poster-shell" id="top">
       <div
         class="poster-noise pointer-events-none absolute inset-[-8%] -z-[2] opacity-70 max-[980px]:inset-0"
         aria-hidden="true"
@@ -52,21 +49,15 @@
         </h1>
       </section>
 
-      <div
-        class="pointer-events-none absolute inset-0 z-[5] flex flex-col px-[clamp(1.4rem,4vw,4rem)] pt-[clamp(4.6rem,8vh,6rem)] max-[980px]:relative max-[980px]:inset-auto max-[980px]:w-full max-[980px]:p-0"
-      >
+      <div class="poster-content">
         <aside
-          class="max-[980px]:border-line pointer-events-auto z-[5] flex w-full max-w-[min(29rem,30vw)] gap-4 self-end text-[#dddddd] max-[980px]:relative max-[980px]:max-w-[42rem] max-[980px]:self-start max-[980px]:border-t max-[980px]:py-[1.35rem] max-[620px]:w-[calc(100vw-2rem)] max-[620px]:max-w-[calc(100vw-2rem)]"
+          class="annotation max-w-[min(29rem,30vw)] self-end max-[980px]:relative max-[980px]:self-start"
           aria-labelledby="work-label"
         >
-          <span
-            class="mt-[calc((1lh-2.2rem)/2)] flex size-[2.2rem] flex-[0_0_2.2rem] items-center justify-center self-start rounded-full border border-white/[0.46] text-[0.72rem] leading-none font-bold tracking-[0.08em] text-white/[0.66] uppercase"
-            data-connector-anchor="work"
-            >01</span
-          >
+          <span class="annotation-index" data-connector-anchor="work">01</span>
           <div class="min-w-0">
             <p
-              class="text-[0.72rem] leading-none font-bold tracking-[0.34em] text-white/[0.66] uppercase after:mt-[0.86rem] after:mb-[1.1rem] after:block after:h-px after:w-[min(20vw,17rem)] after:bg-[linear-gradient(90deg,rgba(255,255,255,0.48),rgba(255,255,255,0.08))] after:content-[''] max-[980px]:after:mt-[0.82rem] max-[980px]:after:mb-4 max-[980px]:after:w-full"
+              class="annotation-heading after:w-[min(20vw,17rem)] after:bg-[linear-gradient(90deg,rgba(255,255,255,0.48),rgba(255,255,255,0.08))] max-[980px]:after:w-full"
               id="work-label"
             >
               Current work
@@ -76,114 +67,61 @@
               href="https://andromeda.greybodygames.com/"
             >
               <span
-                class="origin-left-bottom inline-block skew-x-[-10deg] text-[clamp(2rem,3.2vw,3.55rem)] leading-[0.95] font-bold tracking-[-0.01em] text-[#f5f5f5] uppercase transition-transform duration-[180ms] ease-[ease] group-hover:skew-x-0 group-focus-visible:skew-x-0"
+                class="interactive-title text-[clamp(2rem,3.2vw,3.55rem)] leading-[0.95] font-bold tracking-[-0.01em] text-[#f5f5f5]"
                 >Andromeda</span
               >
-              <span class="text-[clamp(0.92rem,1.15vw,1.08rem)] leading-[1.55] break-words text-[#cfcfcf] uppercase">
-                Space Salvage Management Sim
-              </span>
+              <span class="annotation-copy"> Space Salvage Management Sim </span>
             </a>
           </div>
         </aside>
 
         <aside
-          class="max-[980px]:border-line pointer-events-auto z-[5] mt-auto flex w-full max-w-[min(26rem,28vw)] gap-4 self-start text-[#dddddd] max-[980px]:mt-0 max-[980px]:ml-auto max-[980px]:max-w-[42rem] max-[980px]:border-t max-[980px]:py-[1.35rem] max-[620px]:w-[calc(100vw-2rem)] max-[620px]:max-w-[calc(100vw-2rem)]"
+          class="annotation mt-auto max-w-[min(26rem,28vw)] self-start max-[980px]:mt-0 max-[980px]:ml-auto"
           aria-labelledby="about-title"
         >
           <div class="min-w-0">
             <p
-              class="text-right text-[0.72rem] leading-none font-bold tracking-[0.34em] text-white/[0.66] uppercase after:mt-[0.86rem] after:mb-[1.1rem] after:ml-auto after:block after:h-px after:w-full after:bg-[linear-gradient(90deg,rgba(255,255,255,0.08),rgba(255,255,255,0.48))] after:content-[''] max-[980px]:after:mt-[0.82rem] max-[980px]:after:mb-4"
+              class="annotation-heading text-right after:ml-auto after:w-full after:bg-[linear-gradient(90deg,rgba(255,255,255,0.08),rgba(255,255,255,0.48))]"
               id="about-title"
             >
               About
             </p>
-            <p
-              class="text-justify text-[clamp(0.92rem,1.15vw,1.08rem)] leading-[1.55] break-words text-[#cfcfcf] uppercase"
-            >
+            <p class="annotation-copy text-justify">
               I’m Sayak, a solo game developer working under the name GreyBody Games, currently focused on Andromeda
               (Working Title), a single-player game in early development.
             </p>
           </div>
-          <span
-            class="mt-[calc((1lh-2.2rem)/2)] flex size-[2.2rem] flex-[0_0_2.2rem] items-center justify-center self-start rounded-full border border-white/[0.46] text-[0.72rem] leading-none font-bold tracking-[0.08em] text-white/[0.66] uppercase"
-            data-connector-anchor="about"
-            >02</span
-          >
+          <span class="annotation-index" data-connector-anchor="about">02</span>
         </aside>
 
-        <nav
-          class="pointer-events-auto z-[5] mt-[clamp(1.8rem,4vh,3rem)] w-full text-[#dddddd] max-[980px]:mt-0"
-          aria-label="Social links"
-        >
-          <div class="flex border-t border-white/[0.18] max-[980px]:flex-col max-[980px]:border-t-0">
-            <a
-              class="group relative flex min-h-[6.5rem] flex-[1_1_0] items-end justify-between gap-[clamp(0.9rem,2vw,1.8rem)] pt-[1.05rem] pr-[clamp(3rem,5vw,4.8rem)] pb-[1.05rem] text-[clamp(2rem,3.8vw,4rem)] leading-none font-normal tracking-[0.01em] text-[#eeeeee] uppercase transition-colors duration-[160ms] hover:text-white focus-visible:text-white focus-visible:outline-none max-[980px]:min-h-[5.4rem] max-[980px]:flex-[1_1_auto] max-[980px]:border-t max-[980px]:border-white/[0.16] max-[980px]:pt-[1.45rem] max-[980px]:pr-[2.6rem] max-[980px]:pb-[0.2rem] max-[980px]:text-[clamp(1.7rem,8vw,3.2rem)]"
-              href="https://github.com/SayakMukhopadhyay"
-            >
-              <span
-                class="absolute top-[1.05rem] left-0 text-[0.72rem] leading-none font-bold tracking-[0.2em] text-white/[0.66] max-[980px]:top-[1.45rem]"
-                aria-hidden="true"
-                >01</span
-              >
-              <span
-                class="origin-left-bottom inline-block min-w-0 skew-x-[-10deg] whitespace-nowrap transition-transform duration-[180ms] ease-[ease] group-hover:skew-x-0 group-focus-visible:skew-x-0"
-                >GitHub</span
-              >
-              <span
-                class="mb-[0.1rem] shrink-0 scale-[0.62] text-white/[0.74] transition-transform duration-[180ms] ease-[ease] group-hover:rotate-45 group-focus-visible:rotate-45 max-[980px]:mb-[0.2rem]"
-                aria-hidden="true"
-                >↗</span
-              >
+        <nav class="social-nav" aria-label="Social links">
+          <div class="social-list">
+            <a class="group social-link" href="https://github.com/SayakMukhopadhyay">
+              <span class="social-index left-0" aria-hidden="true">01</span>
+              <span class="social-title">GitHub</span>
+              <span class="social-arrow" aria-hidden="true">↗</span>
             </a>
             <a
-              class="group relative flex min-h-[6.5rem] flex-[1_1_0] grow-[1.2] items-end justify-between gap-[clamp(0.9rem,2vw,1.8rem)] border-l border-white/[0.16] pt-[1.05rem] pr-[clamp(3rem,5vw,4.8rem)] pb-[1.05rem] pl-[clamp(1.2rem,3vw,3rem)] text-[clamp(2rem,3.8vw,4rem)] leading-none font-normal tracking-[0.01em] text-[#eeeeee] uppercase transition-colors duration-[160ms] hover:text-white focus-visible:text-white focus-visible:outline-none max-[980px]:min-h-[5.4rem] max-[980px]:flex-[1_1_auto] max-[980px]:grow max-[980px]:border-t max-[980px]:border-l-0 max-[980px]:border-white/[0.16] max-[980px]:pt-[1.45rem] max-[980px]:pr-[2.6rem] max-[980px]:pb-[0.2rem] max-[980px]:pl-0 max-[980px]:text-[clamp(1.7rem,8vw,3.2rem)]"
+              class="group social-link grow-[1.2] border-l border-white/[0.16] pl-[clamp(1.2rem,3vw,3rem)] max-[980px]:grow max-[980px]:border-l-0 max-[980px]:pl-0"
               href="https://twitter.com/defineSayak"
             >
-              <span
-                class="absolute top-[1.05rem] left-[clamp(1.2rem,3vw,3rem)] text-[0.72rem] leading-none font-bold tracking-[0.2em] text-white/[0.66] max-[980px]:top-[1.45rem] max-[980px]:left-0"
-                aria-hidden="true"
-                >02</span
-              >
-              <span
-                class="origin-left-bottom inline-block min-w-0 skew-x-[-10deg] whitespace-nowrap transition-transform duration-[180ms] ease-[ease] group-hover:skew-x-0 group-focus-visible:skew-x-0"
-                >X / Twitter</span
-              >
-              <span
-                class="mb-[0.1rem] shrink-0 scale-[0.62] text-white/[0.74] transition-transform duration-[180ms] ease-[ease] group-hover:rotate-45 group-focus-visible:rotate-45 max-[980px]:mb-[0.2rem]"
-                aria-hidden="true"
-                >↗</span
-              >
+              <span class="social-index left-[clamp(1.2rem,3vw,3rem)] max-[980px]:left-0" aria-hidden="true">02</span>
+              <span class="social-title">X / Twitter</span>
+              <span class="social-arrow" aria-hidden="true">↗</span>
             </a>
             <a
-              class="group relative flex min-h-[6.5rem] flex-[1_1_0] items-end justify-between gap-[clamp(0.9rem,2vw,1.8rem)] border-l border-white/[0.16] pt-[1.05rem] pr-[clamp(3rem,5vw,4.8rem)] pb-[1.05rem] pl-[clamp(1.2rem,3vw,3rem)] text-[clamp(2rem,3.8vw,4rem)] leading-none font-normal tracking-[0.01em] text-[#eeeeee] uppercase transition-colors duration-[160ms] hover:text-white focus-visible:text-white focus-visible:outline-none max-[980px]:min-h-[5.4rem] max-[980px]:flex-[1_1_auto] max-[980px]:border-t max-[980px]:border-l-0 max-[980px]:border-white/[0.16] max-[980px]:pt-[1.45rem] max-[980px]:pr-[2.6rem] max-[980px]:pb-[0.2rem] max-[980px]:pl-0 max-[980px]:text-[clamp(1.7rem,8vw,3.2rem)]"
+              class="group social-link border-l border-white/[0.16] pl-[clamp(1.2rem,3vw,3rem)] max-[980px]:border-l-0 max-[980px]:pl-0"
               href="https://sayakm.me/"
             >
-              <span
-                class="absolute top-[1.05rem] left-[clamp(1.2rem,3vw,3rem)] text-[0.72rem] leading-none font-bold tracking-[0.2em] text-white/[0.66] max-[980px]:top-[1.45rem] max-[980px]:left-0"
-                aria-hidden="true"
-                >03</span
-              >
-              <span
-                class="origin-left-bottom inline-block min-w-0 skew-x-[-10deg] whitespace-nowrap transition-transform duration-[180ms] ease-[ease] group-hover:skew-x-0 group-focus-visible:skew-x-0"
-                >Blog</span
-              >
-              <span
-                class="mb-[0.1rem] shrink-0 scale-[0.62] text-white/[0.74] transition-transform duration-[180ms] ease-[ease] group-hover:rotate-45 group-focus-visible:rotate-45 max-[980px]:mb-[0.2rem]"
-                aria-hidden="true"
-                >↗</span
-              >
+              <span class="social-index left-[clamp(1.2rem,3vw,3rem)] max-[980px]:left-0" aria-hidden="true">03</span>
+              <span class="social-title">Blog</span>
+              <span class="social-arrow" aria-hidden="true">↗</span>
             </a>
           </div>
         </nav>
 
-        <p
-          class="pointer-events-auto absolute top-1/2 left-[clamp(1.4rem,4vw,4rem)] z-[5] origin-left -translate-y-1/2 -rotate-90 text-[0.72rem] font-bold tracking-[0.08em] whitespace-nowrap text-white/[0.66] uppercase max-[980px]:relative max-[980px]:top-auto max-[980px]:left-auto max-[980px]:mt-[1.8rem] max-[980px]:translate-y-0 max-[980px]:rotate-0"
-        >
-          <span
-            class="mr-[0.38rem] inline-flex aspect-square w-[1.35rem] items-center justify-center rounded-full border border-white/[0.46] text-[0.9rem] tracking-normal"
-            data-copyright-anchor
-            >&copy;</span
-          >
+        <p class="copyright-statement">
+          <span class="copyright-marker" data-copyright-anchor>&copy;</span>
           2026, GreyBody Games / Sayak Mukhopadhyay
         </p>
       </div>
