@@ -7,6 +7,11 @@ const plane = document.querySelector<HTMLElement>('[data-wordmark-plane]')
 const wordmarkO = document.querySelector<HTMLElement>('[data-wordmark-o]')
 const orbitCanvas = document.querySelector<HTMLCanvasElement>('[data-orbit-canvas]')
 const starfieldCanvas = document.querySelector<HTMLCanvasElement>('[data-starfield-canvas]')
+const connectorCanvas = document.querySelector<HTMLCanvasElement>('[data-technical-connectors]')
+const annotationIndices = {
+  about: document.querySelector<HTMLElement>('.annotation-about > .annotation-index'),
+  work: document.querySelector<HTMLElement>('.annotation-work > .annotation-index'),
+}
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 
 type Star = {
@@ -103,6 +108,99 @@ const orbitPoints: OrbitPoint[] = [
 const toRadians = (degrees: number) => (degrees * Math.PI) / 180
 const radiusFromInset = (size: number, inset: number) => (size * (1 - inset / 50)) / 2
 const wrapCoordinate = (value: number, size: number) => ((value % size) + size) % size
+const logoVisibleRadiusScale = 58.208328 / (135.46666 / 2)
+const connectorEndpointRadius = 4.5
+const elementCircle = (element: Element, containerRect: DOMRect) => {
+  const rect = element.getBoundingClientRect()
+
+  return {
+    radius: Math.min(rect.width, rect.height) / 2,
+    x: rect.left + rect.width / 2 - containerRect.left,
+    y: rect.top + rect.height / 2 - containerRect.top,
+  }
+}
+
+const pointOnCircleEdge = (from: ReturnType<typeof elementCircle>, to: { x: number; y: number }) => {
+  const dx = to.x - from.x
+  const dy = to.y - from.y
+  const distance = Math.hypot(dx, dy)
+
+  if (distance === 0) {
+    return from
+  }
+
+  return {
+    x: from.x + (dx / distance) * from.radius,
+    y: from.y + (dy / distance) * from.radius,
+  }
+}
+
+const pointOnLogoEdge = (logo: ReturnType<typeof elementCircle>, angle: number) => ({
+  x: logo.x + Math.cos(toRadians(angle)) * logo.radius,
+  y: logo.y + Math.sin(toRadians(angle)) * logo.radius,
+})
+
+const drawTechnicalConnectors = () => {
+  if (!connectorCanvas || !logoAnchor) {
+    return
+  }
+
+  const rect = connectorCanvas.getBoundingClientRect()
+
+  if (rect.width <= 0 || rect.height <= 0) {
+    return
+  }
+
+  const pixelRatio = Math.min(window.devicePixelRatio || 1, 2)
+  const targetWidth = Math.round(rect.width * pixelRatio)
+  const targetHeight = Math.round(rect.height * pixelRatio)
+
+  if (connectorCanvas.width !== targetWidth || connectorCanvas.height !== targetHeight) {
+    connectorCanvas.width = targetWidth
+    connectorCanvas.height = targetHeight
+  }
+
+  const context = connectorCanvas.getContext('2d')
+
+  if (!context) {
+    return
+  }
+
+  const logo = elementCircle(logoAnchor, rect)
+  logo.radius *= logoVisibleRadiusScale
+  const connectors = [
+    { index: annotationIndices.work, logoAngle: -30 },
+    { index: annotationIndices.about, logoAngle: 30 },
+  ]
+
+  context.clearRect(0, 0, connectorCanvas.width, connectorCanvas.height)
+  context.save()
+  context.scale(pixelRatio, pixelRatio)
+  context.lineWidth = 1
+  context.strokeStyle = 'rgba(255, 255, 255, 0.46)'
+
+  connectors.forEach(({ index, logoAngle }) => {
+    if (!index) {
+      return
+    }
+
+    const logoEdge = pointOnLogoEdge(logo, logoAngle)
+    const indexCircle = elementCircle(index, rect)
+    const indexEdge = pointOnCircleEdge(indexCircle, logoEdge)
+    const connectorEnd = pointOnCircleEdge({ ...logoEdge, radius: connectorEndpointRadius }, indexEdge)
+
+    context.beginPath()
+    context.moveTo(indexEdge.x, indexEdge.y)
+    context.lineTo(connectorEnd.x, connectorEnd.y)
+    context.stroke()
+
+    context.beginPath()
+    context.arc(logoEdge.x, logoEdge.y, connectorEndpointRadius, 0, Math.PI * 2)
+    context.stroke()
+  })
+
+  context.restore()
+}
 
 const drawStarfieldCanvas = () => {
   if (!starfieldCanvas) {
@@ -276,6 +374,7 @@ const alignWordmarkPivot = () => {
   plane.style.setProperty('--wordmark-pivot-y', `${pivotY - planeRect.top}px`)
 
   plane.style.transform = currentTransform
+  drawTechnicalConnectors()
 }
 
 alignWordmarkPivot()
@@ -283,11 +382,13 @@ window.addEventListener('resize', alignWordmarkPivot)
 window.addEventListener('resize', () => {
   drawOrbitCanvas()
   drawStarfieldCanvas()
+  drawTechnicalConnectors()
 })
 window.addEventListener('load', alignWordmarkPivot)
 window.addEventListener('load', () => {
   drawStarfieldCanvas()
   startOrbitAnimation()
+  drawTechnicalConnectors()
 })
 document.fonts.ready.then(alignWordmarkPivot)
 
@@ -295,6 +396,12 @@ if (starfieldCanvas) {
   const starfieldCanvasObserver = new ResizeObserver(drawStarfieldCanvas)
   starfieldCanvasObserver.observe(starfieldCanvas)
   drawStarfieldCanvas()
+}
+
+if (connectorCanvas) {
+  const connectorCanvasObserver = new ResizeObserver(drawTechnicalConnectors)
+  connectorCanvasObserver.observe(connectorCanvas)
+  drawTechnicalConnectors()
 }
 
 if (orbitCanvas) {
