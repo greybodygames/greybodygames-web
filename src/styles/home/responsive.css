@@ -5,6 +5,11 @@
     padding: 2rem 1.35rem 2.6rem;
   }
 
+  .poster-noise,
+  .poster-grid {
+    inset: 0;
+  }
+
   .identity-stage {
     position: relative;
     top: auto;
@@ -102,6 +107,7 @@
 
 @media (max-width: 620px) {
   .poster {
+    min-height: 100vh;
     padding-inline: 1rem;
   }
 
