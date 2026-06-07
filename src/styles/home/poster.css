@@ -3,8 +3,12 @@
     --poster-decoration-bleed: -8%;
     --poster-grid-size: 52px;
     --poster-starfield-size: 116%;
-    --copyright-top: 50%;
-    --copyright-left: clamp(1.1rem, 3vw, 2.3rem);
+    --poster-content-edge-x: clamp(1.4rem, 4vw, 4rem);
+    --poster-content-top: clamp(4.6rem, 8vh, 6rem);
+    --poster-content-bottom: clamp(1.35rem, 3.2vh, 2.2rem);
+    --poster-about-row-gap: clamp(6rem, 13vh, 10rem);
+    --poster-work-width: min(29rem, 30vw);
+    --poster-about-width: min(26rem, 28vw);
     --copyright-font-size: 0.72rem;
     --copyright-letter-spacing: 0.08em;
     --copyright-anchor-size: 1.35rem;
@@ -60,6 +64,27 @@
       opacity: 0.86;
     }
 
+    .poster-content {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      display: grid;
+      grid-template-areas:
+        '. . . . .'
+        '. . . work .'
+        '. . . . .'
+        '. about . . .'
+        '. socials socials socials .'
+        '. . . . .';
+      grid-template-columns:
+        var(--poster-content-edge-x) minmax(0, var(--poster-about-width)) minmax(0, 1fr)
+        minmax(0, var(--poster-work-width)) var(--poster-content-edge-x);
+      grid-template-rows:
+        var(--poster-content-top) auto minmax(var(--poster-about-row-gap), 1fr) auto auto
+        var(--poster-content-bottom);
+      pointer-events: none;
+    }
+
     [data-technical-connectors] {
       position: absolute;
       inset: 0;
@@ -71,17 +96,20 @@
     }
 
     .poster-copyright {
-      position: absolute;
-      top: var(--copyright-top);
-      left: var(--copyright-left);
-      z-index: 4;
+      grid-row: 1 / -1;
+      grid-column: 1;
+      align-self: center;
+      justify-self: center;
+      z-index: 5;
       color: rgba(255, 255, 255, 0.66);
       font-size: var(--copyright-font-size);
       font-weight: 700;
       letter-spacing: var(--copyright-letter-spacing);
       text-transform: uppercase;
-      transform: translateY(-50%) rotate(-90deg);
-      transform-origin: left center;
+      white-space: nowrap;
+      transform: rotate(-90deg);
+      transform-origin: center;
+      pointer-events: auto;
 
       [data-copyright-anchor] {
         display: inline-grid;

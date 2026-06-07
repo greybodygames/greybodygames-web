@@ -1,43 +1,41 @@
 @layer components {
   .annotation-socials {
-    --social-edge-x: clamp(1.4rem, 4vw, 4rem);
-    --social-bottom: clamp(1.35rem, 3.2vh, 2.2rem);
     --social-row-min-height: 5.25rem;
     --social-row-padding-top: 1.05rem;
     --social-row-padding-right: clamp(3rem, 5vw, 4.8rem);
     --social-row-padding-bottom: 0.1rem;
     --social-column-padding: clamp(1.2rem, 3vw, 3rem);
+    --social-columns: minmax(0, 0.95fr) minmax(0, 1.2fr) minmax(0, 0.95fr);
     --social-title-size: clamp(2rem, 3.8vw, 4rem);
-    --social-index-top: 0.72rem;
     --social-index-size: 0.72rem;
     --social-index-tracking: 0.2em;
     --social-arrow-bottom: 0.1rem;
-    --social-arrow-right: clamp(1.2rem, 3.6vw, 3.4rem);
+    --social-arrow-gap: clamp(0.9rem, 2vw, 1.8rem);
     --social-arrow-scale: 0.62;
     --social-arrow-rest-rotation: 0deg;
     --social-arrow-hover-rotation: 45deg;
-    position: absolute;
-    right: var(--social-edge-x);
-    bottom: var(--social-bottom);
-    left: var(--social-edge-x);
+    grid-area: socials;
     z-index: 5;
     display: block;
     width: auto;
     max-width: none;
     color: #dddddd;
+    pointer-events: auto;
 
     > div {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: var(--social-columns);
       gap: 0;
       border-top: 1px solid rgba(255, 255, 255, 0.18);
 
       a {
         position: relative;
-        display: flex;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-rows: auto 1fr;
+        column-gap: var(--social-arrow-gap);
         min-height: var(--social-row-min-height);
         align-items: end;
-        justify-content: space-between;
         padding: var(--social-row-padding-top) var(--social-row-padding-right) var(--social-row-padding-bottom) 0;
         color: #eeeeee;
         font-size: var(--social-title-size);
@@ -53,9 +51,8 @@
         }
 
         &::before {
-          position: absolute;
-          top: var(--social-index-top);
-          left: 0;
+          grid-row: 1;
+          grid-column: 1;
           color: rgba(255, 255, 255, 0.66);
           font-size: var(--social-index-size);
           font-weight: 700;
@@ -68,16 +65,18 @@
 
         &:nth-child(2)::before {
           content: '02';
-          left: var(--social-column-padding);
         }
 
         &:nth-child(3)::before {
           content: '03';
-          left: var(--social-column-padding);
         }
 
         > span {
+          grid-row: 2;
+          grid-column: 1;
           display: inline-block;
+          min-width: 0;
+          white-space: nowrap;
           transform: skewX(var(--interactive-skew));
           transform-origin: left bottom;
           transition: transform var(--interactive-transition);
@@ -85,9 +84,11 @@
 
         &::after {
           content: '\2197';
-          position: absolute;
-          bottom: var(--social-arrow-bottom);
-          right: var(--social-arrow-right);
+          grid-row: 2;
+          grid-column: 2;
+          align-self: end;
+          justify-self: end;
+          margin-bottom: var(--social-arrow-bottom);
           color: rgba(255, 255, 255, 0.74);
           font-size: 1em;
           font-weight: 400;
