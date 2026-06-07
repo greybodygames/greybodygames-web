@@ -28,9 +28,7 @@
         font-weight: 420;
         line-height: 1;
         letter-spacing: 0.01em;
-        transition:
-          color 160ms ease,
-          transform 160ms ease;
+        transition: color 160ms ease;
 
         & + a {
           padding-left: clamp(1.2rem, 3vw, 3rem);
@@ -73,7 +71,6 @@
         &:focus-visible {
           color: #ffffff;
           outline: none;
-          transform: translateY(-1px);
         }
       }
     }

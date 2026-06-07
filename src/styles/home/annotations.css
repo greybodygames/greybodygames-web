@@ -61,7 +61,6 @@
       &:focus-visible {
         color: #ffffff;
         outline: none;
-        transform: translateY(-1px);
       }
     }
   }
