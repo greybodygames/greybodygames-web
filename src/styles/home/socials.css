@@ -1,9 +1,25 @@
 @layer components {
   .annotation-socials {
+    --social-edge-x: clamp(1.4rem, 4vw, 4rem);
+    --social-bottom: clamp(1.35rem, 3.2vh, 2.2rem);
+    --social-row-min-height: 5.25rem;
+    --social-row-padding-top: 1.05rem;
+    --social-row-padding-right: clamp(3rem, 5vw, 4.8rem);
+    --social-row-padding-bottom: 0.1rem;
+    --social-column-padding: clamp(1.2rem, 3vw, 3rem);
+    --social-title-size: clamp(2rem, 3.8vw, 4rem);
+    --social-index-top: 0.72rem;
+    --social-index-size: 0.72rem;
+    --social-index-tracking: 0.2em;
+    --social-arrow-bottom: 0.1rem;
+    --social-arrow-right: clamp(1.2rem, 3.6vw, 3.4rem);
+    --social-arrow-scale: 0.62;
+    --social-arrow-rest-rotation: 0deg;
+    --social-arrow-hover-rotation: 45deg;
     position: absolute;
-    right: clamp(1.4rem, 4vw, 4rem);
-    bottom: clamp(1.35rem, 3.2vh, 2.2rem);
-    left: clamp(1.4rem, 4vw, 4rem);
+    right: var(--social-edge-x);
+    bottom: var(--social-bottom);
+    left: var(--social-edge-x);
     z-index: 5;
     display: block;
     width: auto;
@@ -19,13 +35,12 @@
       a {
         position: relative;
         display: flex;
-        min-height: 5.25rem;
-        --social-arrow-scale: 0.62;
+        min-height: var(--social-row-min-height);
         align-items: end;
         justify-content: space-between;
-        padding: 1.05rem clamp(3rem, 5vw, 4.8rem) 0.1rem 0;
+        padding: var(--social-row-padding-top) var(--social-row-padding-right) var(--social-row-padding-bottom) 0;
         color: #eeeeee;
-        font-size: clamp(2rem, 3.8vw, 4rem);
+        font-size: var(--social-title-size);
         font-weight: 400;
         line-height: 1;
         letter-spacing: 0.01em;
@@ -33,18 +48,18 @@
         transition: color 160ms ease;
 
         & + a {
-          padding-left: clamp(1.2rem, 3vw, 3rem);
+          padding-left: var(--social-column-padding);
           border-left: 1px solid rgba(255, 255, 255, 0.16);
         }
 
         &::before {
           position: absolute;
-          top: 0.72rem;
+          top: var(--social-index-top);
           left: 0;
           color: rgba(255, 255, 255, 0.66);
-          font-size: 0.72rem;
+          font-size: var(--social-index-size);
           font-weight: 700;
-          letter-spacing: 0.2em;
+          letter-spacing: var(--social-index-tracking);
         }
 
         &:nth-child(1)::before {
@@ -53,33 +68,33 @@
 
         &:nth-child(2)::before {
           content: '02';
-          left: clamp(1.2rem, 3vw, 3rem);
+          left: var(--social-column-padding);
         }
 
         &:nth-child(3)::before {
           content: '03';
-          left: clamp(1.2rem, 3vw, 3rem);
+          left: var(--social-column-padding);
         }
 
         > span {
           display: inline-block;
-          transform: skewX(-10deg);
+          transform: skewX(var(--interactive-skew));
           transform-origin: left bottom;
-          transition: transform 180ms ease;
+          transition: transform var(--interactive-transition);
         }
 
         &::after {
           content: '\2197';
           position: absolute;
-          bottom: 0.1rem;
-          right: clamp(1.2rem, 3.6vw, 3.4rem);
+          bottom: var(--social-arrow-bottom);
+          right: var(--social-arrow-right);
           color: rgba(255, 255, 255, 0.74);
           font-size: 1em;
           font-weight: 400;
           line-height: 1;
-          transform: scale(var(--social-arrow-scale)) rotate(0deg);
+          transform: scale(var(--social-arrow-scale)) rotate(var(--social-arrow-rest-rotation));
           transform-origin: center;
-          transition: transform 180ms ease;
+          transition: transform var(--interactive-transition);
         }
 
         &:hover,
@@ -92,7 +107,7 @@
           }
 
           &::after {
-            transform: scale(var(--social-arrow-scale)) rotate(45deg);
+            transform: scale(var(--social-arrow-scale)) rotate(var(--social-arrow-hover-rotation));
           }
         }
       }

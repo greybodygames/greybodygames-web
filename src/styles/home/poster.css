@@ -1,10 +1,22 @@
 @layer components {
   .poster {
+    --poster-decoration-bleed: -8%;
+    --poster-grid-size: 52px;
+    --poster-starfield-size: 116%;
+    --copyright-top: 50%;
+    --copyright-left: clamp(1.1rem, 3vw, 2.3rem);
+    --copyright-font-size: 0.72rem;
+    --copyright-letter-spacing: 0.08em;
+    --copyright-anchor-size: 1.35rem;
+    --copyright-anchor-gap: 0.38rem;
+    --copyright-anchor-font-size: 0.9rem;
+    --poster-padding: 0;
     position: relative;
     display: grid;
     width: 100%;
     min-height: 100svh;
     overflow: hidden;
+    padding: var(--poster-padding);
     background:
       radial-gradient(circle at 46% 48%, rgba(255, 255, 255, 0.08), transparent 13rem),
       radial-gradient(circle at 15% 16%, rgba(255, 255, 255, 0.045), transparent 24rem),
@@ -15,7 +27,7 @@
     .poster-grid,
     [data-starfield-canvas] {
       position: absolute;
-      inset: -8%;
+      inset: var(--poster-decoration-bleed);
       pointer-events: none;
     }
 
@@ -36,14 +48,14 @@
       background-image:
         linear-gradient(rgba(255, 255, 255, 0.024) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
-      background-size: 52px 52px;
+      background-size: var(--poster-grid-size) var(--poster-grid-size);
       mask-image: radial-gradient(circle at 48% 46%, rgba(0, 0, 0, 0.75), transparent 70%);
     }
 
     [data-starfield-canvas] {
       z-index: 1;
-      width: 116%;
-      height: 116%;
+      width: var(--poster-starfield-size);
+      height: var(--poster-starfield-size);
       display: block;
       opacity: 0.86;
     }
@@ -60,25 +72,25 @@
 
     .poster-copyright {
       position: absolute;
-      top: 50%;
-      left: clamp(1.1rem, 3vw, 2.3rem);
+      top: var(--copyright-top);
+      left: var(--copyright-left);
       z-index: 4;
       color: rgba(255, 255, 255, 0.66);
-      font-size: 0.72rem;
+      font-size: var(--copyright-font-size);
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: var(--copyright-letter-spacing);
       text-transform: uppercase;
       transform: translateY(-50%) rotate(-90deg);
       transform-origin: left center;
 
       [data-copyright-anchor] {
         display: inline-grid;
-        width: 1.35rem;
+        width: var(--copyright-anchor-size);
         aspect-ratio: 1;
-        margin-right: 0.38rem;
+        margin-right: var(--copyright-anchor-gap);
         border: 1px solid rgba(255, 255, 255, 0.46);
         border-radius: 999px;
-        font-size: 0.9rem;
+        font-size: var(--copyright-anchor-font-size);
         letter-spacing: 0;
         place-items: center;
       }

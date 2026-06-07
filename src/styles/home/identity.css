@@ -1,17 +1,32 @@
 @layer components {
   .identity-stage {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: 2;
     --logo-left: 60%;
     --logo-top: 50%;
     --wordmark-size: clamp(4.2rem, 10.8vw, 10.5rem);
     --logo-size: var(--wordmark-size);
-    width: min(86vw, 1180px);
-    height: min(70svh, 680px);
+    --identity-width: min(86vw, 1180px);
+    --identity-height: min(70svh, 680px);
+    --identity-perspective: 900px;
+    --wordmark-pivot-x: var(--logo-left);
+    --wordmark-pivot-y: 45%;
+    --orbit-size: clamp(320px, 42vw, 630px);
+    --orbit-depth: -25px;
+    --letter-left-depth: 8px;
+    --letter-gap-depth: 10px;
+    --letter-right-depth: 12px;
+    --games-margin-top: clamp(0.32rem, 1vw, 0.72rem);
+    --games-font-size: clamp(1rem, 2vw, 1.7rem);
+    --games-depth: 20px;
+    --identity-margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    width: var(--identity-width);
+    height: var(--identity-height);
+    margin: var(--identity-margin);
     transform: translate(-50%, -50%);
-    perspective: 900px;
+    perspective: var(--identity-perspective);
     perspective-origin: var(--logo-left) var(--logo-top);
 
     [data-logo-anchor] {
@@ -43,8 +58,6 @@
     }
 
     .wordmark-plane {
-      --wordmark-pivot-x: 60%;
-      --wordmark-pivot-y: 45%;
       display: grid;
       position: relative;
       font-size: var(--wordmark-size);
@@ -59,11 +72,10 @@
       top: var(--wordmark-pivot-y);
       left: var(--wordmark-pivot-x);
       z-index: 1;
-      --orbit-path-z: 4px;
-      width: clamp(320px, 42vw, 630px);
+      width: var(--orbit-size);
       aspect-ratio: 1;
       pointer-events: none;
-      transform: translate3d(-50%, -50%, -25px);
+      transform: translate3d(-50%, -50%, var(--orbit-depth));
       transform-style: preserve-3d;
     }
 
@@ -95,11 +107,11 @@
       }
 
       > span:first-child {
-        transform: translateZ(8px);
+        transform: translateZ(var(--letter-left-depth));
       }
 
       > span:last-child {
-        transform: translateZ(12px);
+        transform: translateZ(var(--letter-right-depth));
       }
 
       > [data-wordmark-o] {
@@ -108,7 +120,7 @@
         color: transparent;
         opacity: 0;
         text-align: center;
-        transform: translateZ(10px);
+        transform: translateZ(var(--letter-gap-depth));
       }
     }
 
@@ -116,16 +128,16 @@
       display: block;
       position: relative;
       z-index: 2;
-      margin-top: clamp(0.32rem, 1vw, 0.72rem);
+      margin-top: var(--games-margin-top);
       color: #f4f4f4;
       font-family: var(--font-sans);
-      font-size: clamp(1rem, 2vw, 1.7rem);
+      font-size: var(--games-font-size);
       font-weight: 700;
       letter-spacing: 0.5em;
       line-height: 1;
       text-align: center;
       text-transform: uppercase;
-      transform: translateZ(20px);
+      transform: translateZ(var(--games-depth));
     }
   }
 }

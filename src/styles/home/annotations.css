@@ -1,14 +1,31 @@
 @layer components {
   .annotation {
+    --annotation-index-size: 2.2rem;
+    --annotation-gap: 1rem;
+    --annotation-width: min(28rem, 32vw);
+    --annotation-color: #dddddd;
+    --annotation-label-color: rgba(255, 255, 255, 0.66);
+    --annotation-label-size: 0.72rem;
+    --annotation-label-tracking: 0.34em;
+    --annotation-index-tracking: 0.08em;
+    --annotation-rule-width: min(20vw, 17rem);
+    --annotation-rule-height: 1px;
+    --annotation-rule-margin: 0.86rem 0 1.1rem;
+    --annotation-rule-start: rgba(255, 255, 255, 0.48);
+    --annotation-rule-end: rgba(255, 255, 255, 0.08);
+    --annotation-padding: 0;
+    --annotation-title-size: clamp(2rem, 3.2vw, 3.55rem);
+    --annotation-copy-size: clamp(0.92rem, 1.15vw, 1.08rem);
+    --annotation-copy-line-height: 1.55;
     position: absolute;
     z-index: 5;
-    --annotation-index-size: 2.2rem;
     display: grid;
     grid-template-columns: var(--annotation-index-size) minmax(0, 1fr);
-    gap: 1rem;
+    gap: var(--annotation-gap);
     width: 100%;
-    max-width: min(28rem, 32vw);
-    color: #dddddd;
+    max-width: var(--annotation-width);
+    padding: var(--annotation-padding);
+    color: var(--annotation-color);
 
     > .annotation-index {
       display: grid;
@@ -19,17 +36,17 @@
       border: 1px solid rgba(255, 255, 255, 0.46);
       border-radius: 999px;
       place-items: center;
-      letter-spacing: 0.08em;
+      letter-spacing: var(--annotation-index-tracking);
     }
   }
 
   .annotation-index,
   .annotation-label {
-    color: rgba(255, 255, 255, 0.66);
-    font-size: 0.72rem;
+    color: var(--annotation-label-color);
+    font-size: var(--annotation-label-size);
     font-weight: 700;
     line-height: 1;
-    letter-spacing: 0.34em;
+    letter-spacing: var(--annotation-label-tracking);
     text-transform: uppercase;
   }
 
@@ -40,22 +57,25 @@
   .annotation-label {
     &::after {
       display: block;
-      width: min(20vw, 17rem);
-      height: 1px;
-      margin: 0.86rem 0 1.1rem;
+      width: var(--annotation-rule-width);
+      height: var(--annotation-rule-height);
+      margin: var(--annotation-rule-margin);
       content: '';
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0.48), rgba(255, 255, 255, 0.08));
+      background: linear-gradient(90deg, var(--annotation-rule-start), var(--annotation-rule-end));
     }
   }
 
   .annotation-work {
-    right: clamp(1.4rem, 5vw, 5.5rem);
-    top: clamp(4.6rem, 8vh, 6rem);
-    max-width: min(29rem, 30vw);
+    --annotation-position-top: clamp(4.6rem, 8vh, 6rem);
+    --annotation-position-right: clamp(1.4rem, 5vw, 5.5rem);
+    --annotation-width: min(29rem, 30vw);
+    --annotation-link-gap: 0.42rem;
+    top: var(--annotation-position-top);
+    right: var(--annotation-position-right);
 
     a {
       display: grid;
-      gap: 0.42rem;
+      gap: var(--annotation-link-gap);
 
       &:hover,
       &:focus-visible {
@@ -72,29 +92,33 @@
   .annotation-title {
     display: inline-block;
     color: #f5f5f5;
-    font-size: clamp(2rem, 3.2vw, 3.55rem);
+    font-size: var(--annotation-title-size);
     font-weight: 700;
     line-height: 0.95;
     letter-spacing: -0.01em;
     text-transform: uppercase;
-    transform: skewX(-10deg);
+    transform: skewX(var(--interactive-skew));
     transform-origin: left bottom;
-    transition: transform 180ms ease;
+    transition: transform var(--interactive-transition);
   }
 
   .annotation-copy {
     color: #cfcfcf;
-    font-size: clamp(0.92rem, 1.15vw, 1.08rem);
-    line-height: 1.55;
+    font-size: var(--annotation-copy-size);
+    line-height: var(--annotation-copy-line-height);
     overflow-wrap: break-word;
     text-transform: uppercase;
   }
 
   .annotation-about {
+    --annotation-position-bottom: clamp(8.4rem, 17vh, 12rem);
+    --annotation-position-left: clamp(1.4rem, 4.8vw, 5.5rem);
+    --annotation-width: min(26rem, 28vw);
+    --annotation-rule-start: rgba(255, 255, 255, 0.08);
+    --annotation-rule-end: rgba(255, 255, 255, 0.48);
     grid-template-columns: minmax(0, 1fr) var(--annotation-index-size);
-    bottom: clamp(8.4rem, 17vh, 12rem);
-    left: clamp(1.4rem, 4.8vw, 5.5rem);
-    max-width: min(26rem, 28vw);
+    bottom: var(--annotation-position-bottom);
+    left: var(--annotation-position-left);
 
     .annotation-label {
       text-align: right;
@@ -103,7 +127,6 @@
         width: 100%;
         margin-right: 0;
         margin-left: auto;
-        background: linear-gradient(90deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.48));
       }
     }
 
