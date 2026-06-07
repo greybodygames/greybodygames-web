@@ -106,9 +106,9 @@
   }
 
   .identity-stage {
-    --wordmark-size: clamp(1.42rem, 8.6vw, 2.1rem);
+    --wordmark-size: clamp(2.25rem, 13.6vw, 3.35rem);
     height: 17rem;
-    margin-bottom: 1.6rem;
+    margin-bottom: 0;
   }
 
   [data-logo-anchor] {
@@ -120,7 +120,7 @@
   }
 
   .wordmark-orbits {
-    width: clamp(190px, 68vw, 280px);
+    width: clamp(150px, 42vw, 260px);
   }
 
   .games-word {
