@@ -110,6 +110,7 @@ const radiusFromInset = (size: number, inset: number) => (size * (1 - inset / 50
 const wrapCoordinate = (value: number, size: number) => ((value % size) + size) % size
 const logoVisibleRadiusScale = 58.208328 / (135.46666 / 2)
 const connectorEndpointRadius = 4.5
+const connectorRandom = createSeededRandom(0x6a09e667)
 const elementCircle = (element: Element, containerRect: DOMRect) => {
   const rect = element.getBoundingClientRect()
 
@@ -135,12 +136,61 @@ const pointOnCircleEdge = (from: ReturnType<typeof elementCircle>, to: { x: numb
   }
 }
 
-const pointOnLogoEdge = (logo: ReturnType<typeof elementCircle>, angle: number) => ({
-  x: logo.x + Math.cos(toRadians(angle)) * logo.radius,
-  y: logo.y + Math.sin(toRadians(angle)) * logo.radius,
+const createLogoConnectorPosition = () => {
+  const angle = connectorRandom() * Math.PI * 2
+  const radius = Math.sqrt(connectorRandom()) * 0.96
+
+  return {
+    x: Math.cos(angle) * radius,
+    y: Math.sin(angle) * radius,
+  }
+}
+
+const createLogoConnectorState = (initialAngle: number) => {
+  const position = {
+    x: Math.cos(toRadians(initialAngle)) * 0.92,
+    y: Math.sin(toRadians(initialAngle)) * 0.92,
+  }
+
+  return {
+    current: { ...position },
+    from: { ...position },
+    target: createLogoConnectorPosition(),
+    moveStartedAt: 0,
+    moveDuration: 700,
+    nextMoveAt: 1000 + connectorRandom() * 1000,
+  }
+}
+
+const connectorStates = {
+  about: createLogoConnectorState(30),
+  work: createLogoConnectorState(-30),
+}
+
+const easeConnectorMotion = (value: number) => 1 - (1 - value) ** 3
+
+const updateConnectorState = (state: (typeof connectorStates)[keyof typeof connectorStates], timestamp: number) => {
+  if (timestamp >= state.nextMoveAt) {
+    state.from = { ...state.current }
+    state.target = createLogoConnectorPosition()
+    state.moveStartedAt = timestamp
+    state.moveDuration = 420 + connectorRandom() * 360
+    state.nextMoveAt = timestamp + state.moveDuration + 1000 + connectorRandom() * 1000
+  }
+
+  const progress = Math.min((timestamp - state.moveStartedAt) / state.moveDuration, 1)
+  const easedProgress = easeConnectorMotion(progress)
+
+  state.current.x = state.from.x + (state.target.x - state.from.x) * easedProgress
+  state.current.y = state.from.y + (state.target.y - state.from.y) * easedProgress
+}
+
+const pointInLogo = (logo: ReturnType<typeof elementCircle>, position: { x: number; y: number }) => ({
+  x: logo.x + position.x * logo.radius,
+  y: logo.y + position.y * logo.radius,
 })
 
-const drawTechnicalConnectors = () => {
+const drawTechnicalConnectors = (timestamp = performance.now()) => {
   if (!connectorCanvas || !logoAnchor) {
     return
   }
@@ -168,9 +218,15 @@ const drawTechnicalConnectors = () => {
 
   const logo = elementCircle(logoAnchor, rect)
   logo.radius *= logoVisibleRadiusScale
+
+  if (!reduceMotion.matches) {
+    updateConnectorState(connectorStates.work, timestamp)
+    updateConnectorState(connectorStates.about, timestamp)
+  }
+
   const connectors = [
-    { index: annotationIndices.work, logoAngle: -30 },
-    { index: annotationIndices.about, logoAngle: 30 },
+    { index: annotationIndices.work, position: connectorStates.work.current },
+    { index: annotationIndices.about, position: connectorStates.about.current },
   ]
 
   context.clearRect(0, 0, connectorCanvas.width, connectorCanvas.height)
@@ -179,12 +235,12 @@ const drawTechnicalConnectors = () => {
   context.lineWidth = 1
   context.strokeStyle = 'rgba(255, 255, 255, 0.46)'
 
-  connectors.forEach(({ index, logoAngle }) => {
+  connectors.forEach(({ index, position }) => {
     if (!index) {
       return
     }
 
-    const logoEdge = pointOnLogoEdge(logo, logoAngle)
+    const logoEdge = pointInLogo(logo, position)
     const indexCircle = elementCircle(index, rect)
     const indexEdge = pointOnCircleEdge(indexCircle, logoEdge)
     const connectorEnd = pointOnCircleEdge({ ...logoEdge, radius: connectorEndpointRadius }, indexEdge)
@@ -200,6 +256,29 @@ const drawTechnicalConnectors = () => {
   })
 
   context.restore()
+}
+
+let connectorAnimationFrame: number | null = null
+
+const renderTechnicalConnectors = (timestamp: number) => {
+  drawTechnicalConnectors(timestamp)
+
+  if (!reduceMotion.matches) {
+    connectorAnimationFrame = window.requestAnimationFrame(renderTechnicalConnectors)
+  }
+}
+
+const startTechnicalConnectors = () => {
+  if (connectorAnimationFrame !== null) {
+    window.cancelAnimationFrame(connectorAnimationFrame)
+    connectorAnimationFrame = null
+  }
+
+  drawTechnicalConnectors()
+
+  if (!reduceMotion.matches) {
+    connectorAnimationFrame = window.requestAnimationFrame(renderTechnicalConnectors)
+  }
 }
 
 const drawStarfieldCanvas = () => {
@@ -399,9 +478,9 @@ if (starfieldCanvas) {
 }
 
 if (connectorCanvas) {
-  const connectorCanvasObserver = new ResizeObserver(drawTechnicalConnectors)
+  const connectorCanvasObserver = new ResizeObserver(() => drawTechnicalConnectors())
   connectorCanvasObserver.observe(connectorCanvas)
-  drawTechnicalConnectors()
+  startTechnicalConnectors()
 }
 
 if (orbitCanvas) {
@@ -410,7 +489,10 @@ if (orbitCanvas) {
   startOrbitAnimation()
 }
 
-reduceMotion.addEventListener('change', startOrbitAnimation)
+reduceMotion.addEventListener('change', () => {
+  startOrbitAnimation()
+  startTechnicalConnectors()
+})
 
 if (plane && !reduceMotion.matches) {
   const rotationX = springValue(0 as number, { stiffness: 90, damping: 18, mass: 0.9 })
