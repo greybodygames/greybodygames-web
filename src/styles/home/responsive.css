@@ -2,7 +2,7 @@
   .poster {
     min-height: auto;
     overflow: visible;
-    padding: 2rem 1.35rem 2.6rem;
+    padding: 2rem 1.35rem 1rem;
   }
 
   .poster-noise,
@@ -48,6 +48,10 @@
     max-width: 42rem;
   }
 
+  .annotation-about {
+    margin-left: auto;
+  }
+
   .annotation-label::after {
     width: 100%;
     margin: 0.82rem 0 1rem;
@@ -62,7 +66,7 @@
     right: auto;
     bottom: auto;
     left: auto;
-    max-width: 42rem;
+    width: 100%;
     margin: 0;
 
     > div {
@@ -70,8 +74,8 @@
       border-top: 0;
 
       a {
-        min-height: 3.4rem;
-        padding: 1.05rem 0 0.2rem;
+        min-height: 4rem;
+        padding: 1.45rem 0 0.2rem;
         font-size: clamp(1.7rem, 8vw, 3.2rem);
         border-top: 1px solid rgba(255, 255, 255, 0.16);
 
