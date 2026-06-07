@@ -9,8 +9,8 @@ const orbitCanvas = document.querySelector<HTMLCanvasElement>('[data-orbit-canva
 const starfieldCanvas = document.querySelector<HTMLCanvasElement>('[data-starfield-canvas]')
 const connectorCanvas = document.querySelector<HTMLCanvasElement>('[data-technical-connectors]')
 const annotationIndices = {
-  about: document.querySelector<HTMLElement>('.annotation-about > .annotation-index'),
-  work: document.querySelector<HTMLElement>('.annotation-work > .annotation-index'),
+  about: document.querySelector<HTMLElement>('[data-connector-anchor="about"]'),
+  work: document.querySelector<HTMLElement>('[data-connector-anchor="work"]'),
 }
 const copyrightAnchor = document.querySelector<HTMLElement>('[data-copyright-anchor]')
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')

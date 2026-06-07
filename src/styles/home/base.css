@@ -1,7 +1,5 @@
 @layer base {
   :root {
-    --interactive-skew: -10deg;
-    --interactive-transition: 180ms ease;
     color-scheme: dark;
     background: #050505;
     font-family: var(--font-sans);

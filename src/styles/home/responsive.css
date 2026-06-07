@@ -1,12 +1,4 @@
 @media (max-width: 980px) {
-  .poster {
-    --poster-decoration-bleed: 0;
-    --poster-padding: 2rem 1.35rem 1rem;
-    --poster-starfield-size: 100%;
-    min-height: auto;
-    overflow: visible;
-  }
-
   .identity-stage {
     --wordmark-size: clamp(2.7rem, 13vw, 6.4rem);
     --identity-width: 100%;
@@ -19,93 +11,9 @@
     z-index: 2;
     transform: none;
   }
-
-  .poster-content {
-    position: relative;
-    inset: auto;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .wordmark-line {
-    grid-template-columns: auto 1em auto;
-  }
-
-  .annotation {
-    --annotation-width: 42rem;
-    --annotation-padding: 1.35rem 0;
-    --annotation-rule-width: 100%;
-    --annotation-rule-margin: 0.82rem 0 1rem;
-    position: relative;
-    margin: 0;
-    border-top: 1px solid var(--color-line);
-  }
-
-  .annotation-work,
-  .annotation-about {
-    --annotation-width: 42rem;
-  }
-
-  .annotation-about {
-    margin-left: auto;
-  }
-
-  .annotation + .annotation {
-    margin-top: 0.2rem;
-  }
-
-  .annotation-socials {
-    --social-row-min-height: 4rem;
-    --social-row-padding-top: 1.45rem;
-    --social-row-padding-right: 2.6rem;
-    --social-row-padding-bottom: 0.2rem;
-    --social-column-padding: 0;
-    --social-columns: 1fr;
-    --social-title-size: clamp(1.7rem, 8vw, 3.2rem);
-    --social-arrow-bottom: 0.2rem;
-    --social-arrow-gap: 1rem;
-    position: relative;
-    width: 100%;
-    margin: 0;
-
-    > div {
-      grid-template-columns: 1fr;
-      border-top: 0;
-
-      a {
-        border-top: 1px solid rgba(255, 255, 255, 0.16);
-
-        & + a {
-          border-left: 0;
-        }
-      }
-    }
-  }
-
-  [data-starfield-canvas] {
-    inset: 0;
-    display: block;
-    width: 100%;
-    height: 34rem;
-    opacity: 0.28;
-  }
-
-  .poster-copyright {
-    position: relative;
-    top: auto;
-    left: auto;
-    margin-top: 1.8rem;
-    transform: none;
-  }
 }
 
 @media (max-width: 620px) {
-  .poster {
-    --poster-padding: 2rem 1rem 1rem;
-    min-height: 100vh;
-  }
-
   .identity-stage {
     --wordmark-size: clamp(2.25rem, 13.6vw, 3.35rem);
     --identity-height: 17rem;
@@ -113,31 +21,8 @@
     --orbit-size: clamp(150px, 42vw, 260px);
   }
 
-  [data-logo-anchor] {
-    width: var(--logo-size);
-  }
-
-  .wordmark-line {
-    grid-template-columns: auto 1em auto;
-  }
-
   .games-word {
     --games-font-size: 0.86rem;
-  }
-
-  .annotation {
-    --annotation-width: calc(100vw - 2rem);
-    width: calc(100vw - 2rem);
-  }
-
-  .annotation-work,
-  .annotation-about {
-    --annotation-width: calc(100vw - 2rem);
-    width: calc(100vw - 2rem);
-  }
-
-  .annotation-about {
-    grid-template-columns: minmax(0, 1fr) var(--annotation-index-size);
   }
 }
 

@@ -4,7 +4,4 @@
 @import './styles/home/base.css';
 @import './styles/home/poster.css';
 @import './styles/home/identity.css';
-@import './styles/home/annotations.css';
-@import './styles/home/socials.css';
-@import './styles/home/utilities.css';
 @import './styles/home/responsive.css';

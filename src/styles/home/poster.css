@@ -1,42 +1,12 @@
 @layer components {
   .poster {
-    --poster-decoration-bleed: -8%;
     --poster-grid-size: 52px;
-    --poster-starfield-size: 116%;
-    --poster-content-edge-x: clamp(1.4rem, 4vw, 4rem);
-    --poster-content-top: clamp(4.6rem, 8vh, 6rem);
-    --poster-content-bottom: clamp(1.35rem, 3.2vh, 2.2rem);
-    --poster-about-row-gap: clamp(6rem, 13vh, 10rem);
-    --poster-work-width: min(29rem, 30vw);
-    --poster-about-width: min(26rem, 28vw);
-    --copyright-font-size: 0.72rem;
-    --copyright-letter-spacing: 0.08em;
-    --copyright-anchor-size: 1.35rem;
-    --copyright-anchor-gap: 0.38rem;
-    --copyright-anchor-font-size: 0.9rem;
-    --poster-padding: 0;
-    position: relative;
-    display: grid;
-    width: 100%;
-    min-height: 100svh;
-    overflow: hidden;
-    padding: var(--poster-padding);
     background:
       radial-gradient(circle at 46% 48%, rgba(255, 255, 255, 0.08), transparent 13rem),
       radial-gradient(circle at 15% 16%, rgba(255, 255, 255, 0.045), transparent 24rem),
       linear-gradient(135deg, #050505 0%, #080808 46%, #101010 100%);
-    isolation: isolate;
-
-    .poster-noise,
-    .poster-grid,
-    [data-starfield-canvas] {
-      position: absolute;
-      inset: var(--poster-decoration-bleed);
-      pointer-events: none;
-    }
 
     .poster-noise {
-      z-index: -2;
       background: repeating-linear-gradient(
         0deg,
         rgba(255, 255, 255, 0.018) 0,
@@ -48,80 +18,11 @@
     }
 
     .poster-grid {
-      z-index: -3;
       background-image:
         linear-gradient(rgba(255, 255, 255, 0.024) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
       background-size: var(--poster-grid-size) var(--poster-grid-size);
       mask-image: radial-gradient(circle at 48% 46%, rgba(0, 0, 0, 0.75), transparent 70%);
-    }
-
-    [data-starfield-canvas] {
-      z-index: 1;
-      width: var(--poster-starfield-size);
-      height: var(--poster-starfield-size);
-      display: block;
-      opacity: 0.86;
-    }
-
-    .poster-content {
-      position: absolute;
-      inset: 0;
-      z-index: 5;
-      display: grid;
-      grid-template-areas:
-        '. . . . .'
-        '. . . work .'
-        '. . . . .'
-        '. about . . .'
-        '. socials socials socials .'
-        '. . . . .';
-      grid-template-columns:
-        var(--poster-content-edge-x) minmax(0, var(--poster-about-width)) minmax(0, 1fr)
-        minmax(0, var(--poster-work-width)) var(--poster-content-edge-x);
-      grid-template-rows:
-        var(--poster-content-top) auto minmax(var(--poster-about-row-gap), 1fr) auto auto
-        var(--poster-content-bottom);
-      pointer-events: none;
-    }
-
-    [data-technical-connectors] {
-      position: absolute;
-      inset: 0;
-      z-index: 4;
-      display: block;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-
-    .poster-copyright {
-      grid-row: 1 / -1;
-      grid-column: 1;
-      align-self: center;
-      justify-self: center;
-      z-index: 5;
-      color: rgba(255, 255, 255, 0.66);
-      font-size: var(--copyright-font-size);
-      font-weight: 700;
-      letter-spacing: var(--copyright-letter-spacing);
-      text-transform: uppercase;
-      white-space: nowrap;
-      transform: rotate(-90deg);
-      transform-origin: center;
-      pointer-events: auto;
-
-      [data-copyright-anchor] {
-        display: inline-grid;
-        width: var(--copyright-anchor-size);
-        aspect-ratio: 1;
-        margin-right: var(--copyright-anchor-gap);
-        border: 1px solid rgba(255, 255, 255, 0.46);
-        border-radius: 999px;
-        font-size: var(--copyright-anchor-font-size);
-        letter-spacing: 0;
-        place-items: center;
-      }
     }
   }
 }
