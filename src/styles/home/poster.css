@@ -70,6 +70,18 @@
       text-transform: uppercase;
       transform: translateY(-50%) rotate(-90deg);
       transform-origin: left center;
+
+      [data-copyright-anchor] {
+        display: inline-grid;
+        width: 1.35rem;
+        aspect-ratio: 1;
+        margin-right: 0.38rem;
+        border: 1px solid rgba(255, 255, 255, 0.46);
+        border-radius: 999px;
+        font-size: 0.9rem;
+        letter-spacing: 0;
+        place-items: center;
+      }
     }
   }
 }

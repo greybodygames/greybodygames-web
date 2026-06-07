@@ -12,6 +12,7 @@ const annotationIndices = {
   about: document.querySelector<HTMLElement>('.annotation-about > .annotation-index'),
   work: document.querySelector<HTMLElement>('.annotation-work > .annotation-index'),
 }
+const copyrightAnchor = document.querySelector<HTMLElement>('[data-copyright-anchor]')
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 
 type Star = {
@@ -164,6 +165,7 @@ const createLogoConnectorState = (initialAngle: number) => {
 
 const connectorStates = {
   about: createLogoConnectorState(30),
+  copyright: createLogoConnectorState(180),
   work: createLogoConnectorState(-30),
 }
 
@@ -220,13 +222,13 @@ const drawTechnicalConnectors = (timestamp = performance.now()) => {
   logo.radius *= logoVisibleRadiusScale
 
   if (!reduceMotion.matches) {
-    updateConnectorState(connectorStates.work, timestamp)
-    updateConnectorState(connectorStates.about, timestamp)
+    Object.values(connectorStates).forEach((state) => updateConnectorState(state, timestamp))
   }
 
   const connectors = [
-    { index: annotationIndices.work, position: connectorStates.work.current },
-    { index: annotationIndices.about, position: connectorStates.about.current },
+    { anchor: annotationIndices.work, position: connectorStates.work.current },
+    { anchor: annotationIndices.about, position: connectorStates.about.current },
+    { anchor: copyrightAnchor, position: connectorStates.copyright.current },
   ]
 
   context.clearRect(0, 0, connectorCanvas.width, connectorCanvas.height)
@@ -235,18 +237,18 @@ const drawTechnicalConnectors = (timestamp = performance.now()) => {
   context.lineWidth = 1
   context.strokeStyle = 'rgba(255, 255, 255, 0.46)'
 
-  connectors.forEach(({ index, position }) => {
-    if (!index) {
+  connectors.forEach(({ anchor, position }) => {
+    if (!anchor) {
       return
     }
 
     const logoEdge = pointInLogo(logo, position)
-    const indexCircle = elementCircle(index, rect)
-    const indexEdge = pointOnCircleEdge(indexCircle, logoEdge)
-    const connectorEnd = pointOnCircleEdge({ ...logoEdge, radius: connectorEndpointRadius }, indexEdge)
+    const anchorCircle = elementCircle(anchor, rect)
+    const anchorEdge = pointOnCircleEdge(anchorCircle, logoEdge)
+    const connectorEnd = pointOnCircleEdge({ ...logoEdge, radius: connectorEndpointRadius }, anchorEdge)
 
     context.beginPath()
-    context.moveTo(indexEdge.x, indexEdge.y)
+    context.moveTo(anchorEdge.x, anchorEdge.y)
     context.lineTo(connectorEnd.x, connectorEnd.y)
     context.stroke()
 
