@@ -9,10 +9,18 @@
     width: 100%;
     max-width: min(28rem, 32vw);
     color: #dddddd;
-  }
 
-  .annotation-body {
-    min-width: 0;
+    > .annotation-index {
+      display: grid;
+      width: var(--annotation-index-size);
+      height: var(--annotation-index-size);
+      margin-block-start: calc((1lh - var(--annotation-index-size)) / 2);
+      align-self: start;
+      border: 1px solid rgba(255, 255, 255, 0.46);
+      border-radius: 999px;
+      place-items: center;
+      letter-spacing: 0.08em;
+    }
   }
 
   .annotation-index,
@@ -25,25 +33,19 @@
     text-transform: uppercase;
   }
 
-  .annotation > .annotation-index {
-    display: grid;
-    width: var(--annotation-index-size);
-    height: var(--annotation-index-size);
-    margin-block-start: calc((1lh - var(--annotation-index-size)) / 2);
-    align-self: start;
-    border: 1px solid rgba(255, 255, 255, 0.46);
-    border-radius: 999px;
-    place-items: center;
-    letter-spacing: 0.08em;
+  .annotation-body {
+    min-width: 0;
   }
 
-  .annotation-label::after {
-    display: block;
-    width: min(20vw, 17rem);
-    height: 1px;
-    margin: 0.86rem 0 1.1rem;
-    content: '';
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.48), rgba(255, 255, 255, 0.08));
+  .annotation-label {
+    &::after {
+      display: block;
+      width: min(20vw, 17rem);
+      height: 1px;
+      margin: 0.86rem 0 1.1rem;
+      content: '';
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.48), rgba(255, 255, 255, 0.08));
+    }
   }
 
   .annotation-work {
@@ -77,20 +79,20 @@
     bottom: clamp(8.4rem, 17vh, 12rem);
     left: clamp(1.4rem, 4.8vw, 5.5rem);
     max-width: min(26rem, 28vw);
-  }
 
-  .annotation-about .annotation-label {
-    text-align: right;
-  }
+    .annotation-label {
+      text-align: right;
 
-  .annotation-about .annotation-label::after {
-    width: 100%;
-    margin-right: 0;
-    margin-left: auto;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.48));
-  }
+      &::after {
+        width: 100%;
+        margin-right: 0;
+        margin-left: auto;
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.48));
+      }
+    }
 
-  .annotation-about .annotation-copy {
-    text-align: justify;
+    .annotation-copy {
+      text-align: justify;
+    }
   }
 }

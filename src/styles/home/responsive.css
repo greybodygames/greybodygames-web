@@ -67,23 +67,23 @@
   .social-list {
     grid-template-columns: 1fr;
     border-top: 0;
-  }
 
-  .social-list a {
-    min-height: 3.4rem;
-    padding: 1.05rem 0 0.2rem;
-    font-size: clamp(1.7rem, 8vw, 3.2rem);
-    border-top: 1px solid rgba(255, 255, 255, 0.16);
-  }
+    a {
+      min-height: 3.4rem;
+      padding: 1.05rem 0 0.2rem;
+      font-size: clamp(1.7rem, 8vw, 3.2rem);
+      border-top: 1px solid rgba(255, 255, 255, 0.16);
 
-  .social-list a + a {
-    padding-left: 0;
-    border-left: 0;
-  }
+      & + a {
+        padding-left: 0;
+        border-left: 0;
+      }
 
-  .social-list a:nth-child(2)::before,
-  .social-list a:nth-child(3)::before {
-    left: 0;
+      &:nth-child(2)::before,
+      &:nth-child(3)::before {
+        left: 0;
+      }
+    }
   }
 
   .poster-credit {

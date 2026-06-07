@@ -25,13 +25,13 @@
     aspect-ratio: 1;
     place-items: center;
     transform: translate(-50%, -50%);
-  }
 
-  .logo-anchor img {
-    width: 100%;
-    height: auto;
-    border-radius: 50%;
-    filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.62)) drop-shadow(0 0 16px rgba(255, 255, 255, 0.2));
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 50%;
+      filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.62)) drop-shadow(0 0 16px rgba(255, 255, 255, 0.2));
+    }
   }
 
   .wordmark {
@@ -84,33 +84,33 @@
     grid-template-columns: auto 1em auto;
     align-items: center;
     transform-style: preserve-3d;
-  }
 
-  .wordmark-line > span {
-    color: var(--color-ink);
-    font-family: 'GreyBody Display', Impact, sans-serif;
-    font-size: 1em;
-    line-height: 0.82;
-    text-transform: uppercase;
-    text-shadow: 0 0 18px rgba(255, 255, 255, 0.12);
-    white-space: nowrap;
-  }
+    > span {
+      color: var(--color-ink);
+      font-family: 'GreyBody Display', Impact, sans-serif;
+      font-size: 1em;
+      line-height: 0.82;
+      text-transform: uppercase;
+      text-shadow: 0 0 18px rgba(255, 255, 255, 0.12);
+      white-space: nowrap;
+    }
 
-  .wordmark-line > span:first-child {
-    transform: translateZ(8px);
-  }
+    > span:first-child {
+      transform: translateZ(8px);
+    }
 
-  .wordmark-line > span:last-child {
-    transform: translateZ(12px);
-  }
+    > span:last-child {
+      transform: translateZ(12px);
+    }
 
-  .wordmark-line > [data-wordmark-o] {
-    display: block;
-    width: 1em;
-    color: transparent;
-    opacity: 0;
-    text-align: center;
-    transform: translateZ(10px);
+    > [data-wordmark-o] {
+      display: block;
+      width: 1em;
+      color: transparent;
+      opacity: 0;
+      text-align: center;
+      transform: translateZ(10px);
+    }
   }
 
   .games-word {
