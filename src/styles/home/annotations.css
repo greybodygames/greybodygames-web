@@ -52,11 +52,18 @@
     right: clamp(1.4rem, 5vw, 5.5rem);
     top: clamp(4.6rem, 8vh, 6rem);
     max-width: min(29rem, 30vw);
-  }
 
-  .annotation-work a {
-    display: grid;
-    gap: 0.42rem;
+    a {
+      display: grid;
+      gap: 0.42rem;
+
+      &:hover,
+      &:focus-visible {
+        color: #ffffff;
+        outline: none;
+        transform: translateY(-1px);
+      }
+    }
   }
 
   .annotation-title {

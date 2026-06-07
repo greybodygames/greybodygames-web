@@ -13,119 +13,119 @@
     transform: translate(-50%, -50%);
     perspective: 900px;
     perspective-origin: var(--logo-left) var(--logo-top);
-  }
 
-  [data-logo-anchor] {
-    position: absolute;
-    top: var(--logo-top);
-    left: var(--logo-left);
-    z-index: 3;
-    display: grid;
-    width: var(--logo-size);
-    aspect-ratio: 1;
-    place-items: center;
-    transform: translate(-50%, -50%);
+    [data-logo-anchor] {
+      position: absolute;
+      top: var(--logo-top);
+      left: var(--logo-left);
+      z-index: 3;
+      display: grid;
+      width: var(--logo-size);
+      aspect-ratio: 1;
+      place-items: center;
+      transform: translate(-50%, -50%);
 
-    img {
-      width: 100%;
-      height: auto;
-      border-radius: 50%;
-      filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.62)) drop-shadow(0 0 16px rgba(255, 255, 255, 0.2));
-    }
-  }
-
-  .wordmark {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    display: grid;
-    place-items: center;
-    transform-style: preserve-3d;
-  }
-
-  .wordmark-plane {
-    --wordmark-pivot-x: 60%;
-    --wordmark-pivot-y: 45%;
-    display: grid;
-    position: relative;
-    font-size: var(--wordmark-size);
-    place-items: center;
-    transform-origin: var(--wordmark-pivot-x) var(--wordmark-pivot-y);
-    transform-style: preserve-3d;
-    will-change: transform;
-  }
-
-  .wordmark-orbits {
-    position: absolute;
-    top: var(--wordmark-pivot-y);
-    left: var(--wordmark-pivot-x);
-    z-index: 1;
-    --orbit-path-z: 4px;
-    width: clamp(320px, 42vw, 630px);
-    aspect-ratio: 1;
-    pointer-events: none;
-    transform: translate3d(-50%, -50%, -25px);
-    transform-style: preserve-3d;
-  }
-
-  [data-orbit-canvas] {
-    position: absolute;
-    inset: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-  }
-
-  .wordmark-line {
-    position: relative;
-    z-index: 2;
-    display: grid;
-    grid-template-columns: auto 1em auto;
-    align-items: center;
-    transform-style: preserve-3d;
-
-    > span {
-      color: var(--color-ink);
-      font-family: 'GreyBody Display', Impact, sans-serif;
-      font-size: 1em;
-      line-height: 0.82;
-      text-transform: uppercase;
-      text-shadow: 0 0 18px rgba(255, 255, 255, 0.12);
-      white-space: nowrap;
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: 50%;
+        filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.62)) drop-shadow(0 0 16px rgba(255, 255, 255, 0.2));
+      }
     }
 
-    > span:first-child {
-      transform: translateZ(8px);
+    .wordmark {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      transform-style: preserve-3d;
     }
 
-    > span:last-child {
-      transform: translateZ(12px);
+    .wordmark-plane {
+      --wordmark-pivot-x: 60%;
+      --wordmark-pivot-y: 45%;
+      display: grid;
+      position: relative;
+      font-size: var(--wordmark-size);
+      place-items: center;
+      transform-origin: var(--wordmark-pivot-x) var(--wordmark-pivot-y);
+      transform-style: preserve-3d;
+      will-change: transform;
     }
 
-    > [data-wordmark-o] {
+    .wordmark-orbits {
+      position: absolute;
+      top: var(--wordmark-pivot-y);
+      left: var(--wordmark-pivot-x);
+      z-index: 1;
+      --orbit-path-z: 4px;
+      width: clamp(320px, 42vw, 630px);
+      aspect-ratio: 1;
+      pointer-events: none;
+      transform: translate3d(-50%, -50%, -25px);
+      transform-style: preserve-3d;
+    }
+
+    [data-orbit-canvas] {
+      position: absolute;
+      inset: 0;
       display: block;
-      width: 1em;
-      color: transparent;
-      opacity: 0;
-      text-align: center;
-      transform: translateZ(10px);
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
     }
-  }
 
-  .games-word {
-    display: block;
-    position: relative;
-    z-index: 2;
-    margin-top: clamp(0.32rem, 1vw, 0.72rem);
-    color: #f4f4f4;
-    font-family: var(--font-sans);
-    font-size: clamp(1rem, 2vw, 1.7rem);
-    font-weight: 900;
-    letter-spacing: 0.5em;
-    line-height: 1;
-    text-align: center;
-    text-transform: uppercase;
-    transform: translateZ(20px);
+    .wordmark-line {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: auto 1em auto;
+      align-items: center;
+      transform-style: preserve-3d;
+
+      > span {
+        color: var(--color-ink);
+        font-family: 'GreyBody Display', Impact, sans-serif;
+        font-size: 1em;
+        line-height: 0.82;
+        text-transform: uppercase;
+        text-shadow: 0 0 18px rgba(255, 255, 255, 0.12);
+        white-space: nowrap;
+      }
+
+      > span:first-child {
+        transform: translateZ(8px);
+      }
+
+      > span:last-child {
+        transform: translateZ(12px);
+      }
+
+      > [data-wordmark-o] {
+        display: block;
+        width: 1em;
+        color: transparent;
+        opacity: 0;
+        text-align: center;
+        transform: translateZ(10px);
+      }
+    }
+
+    .games-word {
+      display: block;
+      position: relative;
+      z-index: 2;
+      margin-top: clamp(0.32rem, 1vw, 0.72rem);
+      color: #f4f4f4;
+      font-family: var(--font-sans);
+      font-size: clamp(1rem, 2vw, 1.7rem);
+      font-weight: 900;
+      letter-spacing: 0.5em;
+      line-height: 1;
+      text-align: center;
+      text-transform: uppercase;
+      transform: translateZ(20px);
+    }
   }
 }
