@@ -15,7 +15,7 @@
     perspective-origin: var(--logo-left) var(--logo-top);
   }
 
-  .logo-anchor {
+  [data-logo-anchor] {
     position: absolute;
     top: var(--logo-top);
     left: var(--logo-left);
@@ -68,7 +68,7 @@
     transform-style: preserve-3d;
   }
 
-  .orbit-canvas {
+  [data-orbit-canvas] {
     position: absolute;
     inset: 0;
     display: block;

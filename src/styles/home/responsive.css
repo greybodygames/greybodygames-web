@@ -53,10 +53,15 @@
   }
 
   .annotation-socials {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    left: auto;
     max-width: 42rem;
+    margin: 0;
   }
 
-  .poster-starfield {
+  [data-starfield-canvas] {
     inset: 0;
     display: block;
     width: 100%;
@@ -64,7 +69,7 @@
     opacity: 0.28;
   }
 
-  .social-list {
+  .annotation-socials > div {
     grid-template-columns: 1fr;
     border-top: 0;
 
@@ -106,7 +111,7 @@
     margin-bottom: 1.6rem;
   }
 
-  .logo-anchor {
+  [data-logo-anchor] {
     width: var(--logo-size);
   }
 

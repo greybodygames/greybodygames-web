@@ -14,7 +14,7 @@
 
   .poster-noise,
   .poster-grid,
-  .poster-starfield {
+  [data-starfield-canvas] {
     position: absolute;
     inset: -8%;
     pointer-events: none;
@@ -41,7 +41,7 @@
     mask-image: radial-gradient(circle at 48% 46%, rgba(0, 0, 0, 0.75), transparent 70%);
   }
 
-  .poster-starfield {
+  [data-starfield-canvas] {
     z-index: 1;
     width: 116%;
     height: 116%;
@@ -49,7 +49,7 @@
     opacity: 0.86;
   }
 
-  .technical-connectors {
+  [data-technical-connectors] {
     position: absolute;
     inset: 0;
     z-index: 4;

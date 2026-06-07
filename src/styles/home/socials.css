@@ -1,14 +1,17 @@
 @layer components {
   .annotation-socials {
+    position: absolute;
     right: clamp(1.4rem, 4vw, 4rem);
     bottom: clamp(1.35rem, 3.2vh, 2.2rem);
     left: clamp(1.4rem, 4vw, 4rem);
+    z-index: 5;
     display: block;
     width: auto;
     max-width: none;
+    color: #dddddd;
   }
 
-  .social-list {
+  .annotation-socials > div {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0;
@@ -69,10 +72,10 @@
     }
   }
 
-  .social-list a:hover,
-  .social-list a:focus-visible,
-  .annotation-link:hover,
-  .annotation-link:focus-visible {
+  .annotation-socials a:hover,
+  .annotation-socials a:focus-visible,
+  .annotation-work a:hover,
+  .annotation-work a:focus-visible {
     color: #ffffff;
     outline: none;
     transform: translateY(-1px);

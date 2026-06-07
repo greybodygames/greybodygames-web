@@ -54,7 +54,7 @@
     max-width: min(29rem, 30vw);
   }
 
-  .annotation-link {
+  .annotation-work a {
     display: grid;
     gap: 0.42rem;
   }
