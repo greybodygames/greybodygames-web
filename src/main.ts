@@ -106,9 +106,21 @@ const orbitPoints: OrbitPoint[] = [
   { inset: 29, angle: 78, size: 7, alpha: 0.76, degreesPerSecond: 10.75 },
 ]
 
+type DeviceOrientationPermissionState = 'granted' | 'denied' | 'prompt'
+
+type DeviceOrientationEventConstructorWithPermission = typeof DeviceOrientationEvent & {
+  requestPermission?: () => Promise<DeviceOrientationPermissionState>
+}
+
+type OrientationBaseline = {
+  beta: number
+  gamma: number
+}
+
 const toRadians = (degrees: number) => (degrees * Math.PI) / 180
 const radiusFromInset = (size: number, inset: number) => (size * (1 - inset / 50)) / 2
 const wrapCoordinate = (value: number, size: number) => ((value % size) + size) % size
+const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max)
 const logoVisibleRadiusScale = 58.208328 / (135.46666 / 2)
 const connectorEndpointRadius = 4.5
 const connectorRandom = createSeededRandom(0x6a09e667)
@@ -497,11 +509,16 @@ reduceMotion.addEventListener('change', () => {
 })
 
 if (plane && !reduceMotion.matches) {
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)')
+  const coarsePointer = window.matchMedia('(pointer: coarse)')
   const rotationX = springValue(0 as number, { stiffness: 90, damping: 18, mass: 0.9 })
   const rotationY = springValue(0 as number, { stiffness: 90, damping: 18, mass: 0.9 })
   const translateX = springValue(0 as number, { stiffness: 100, damping: 20, mass: 0.8 })
   const translateY = springValue(0 as number, { stiffness: 100, damping: 20, mass: 0.8 })
   const translateZ = springValue(0 as number, { stiffness: 85, damping: 19, mass: 0.9 })
+  let orientationBaseline: OrientationBaseline | null = null
+  let orientationActive = false
+  let orientationPermissionRequested = false
 
   const render = () => {
     plane.style.transform = [
@@ -519,24 +536,32 @@ if (plane && !reduceMotion.matches) {
     translateZ.on('change', render),
   ]
 
-  const setTargets = (event: PointerEvent) => {
-    const x = event.clientX / window.innerWidth - 0.5
-    const y = event.clientY / window.innerHeight - 0.5
+  const setParallaxTargets = (x: number, y: number) => {
+    const normalizedX = clamp(x, -0.5, 0.5)
+    const normalizedY = clamp(y, -0.5, 0.5)
     const isCompact = window.matchMedia('(max-width: 980px)').matches
     const rotationScale = isCompact ? 18 : 32
     const shiftScale = isCompact ? 10 : 24
 
-    rotationX.set(y * -rotationScale)
-    rotationY.set(x * rotationScale * 1.18)
-    translateX.set(x * shiftScale)
-    translateY.set(y * shiftScale)
-    translateZ.set((Math.abs(x) + Math.abs(y)) * 42)
+    rotationX.set(normalizedY * -rotationScale)
+    rotationY.set(normalizedX * rotationScale * 1.18)
+    translateX.set(normalizedX * shiftScale)
+    translateY.set(normalizedY * shiftScale)
+    translateZ.set((Math.abs(normalizedX) + Math.abs(normalizedY)) * 42)
 
     if (starfieldCanvas) {
-      starfieldParallaxX = x * -28
-      starfieldParallaxY = y * -18
+      starfieldParallaxX = normalizedX * -28
+      starfieldParallaxY = normalizedY * -18
       drawStarfieldCanvas()
     }
+  }
+
+  const setPointerTargets = (event: PointerEvent) => {
+    if (!finePointer.matches || (event.pointerType !== 'mouse' && event.pointerType !== 'pen')) {
+      return
+    }
+
+    setParallaxTargets(event.clientX / window.innerWidth - 0.5, event.clientY / window.innerHeight - 0.5)
   }
 
   const resetTargets = () => {
@@ -553,13 +578,133 @@ if (plane && !reduceMotion.matches) {
     }
   }
 
-  window.addEventListener('pointermove', setTargets, { passive: true })
+  const getScreenOrientationAngle = () =>
+    screen.orientation?.angle ?? (window as Window & { orientation?: number }).orientation ?? 0
+
+  const getDeviceOrientationEvent = () =>
+    window.DeviceOrientationEvent as DeviceOrientationEventConstructorWithPermission | undefined
+
+  const setOrientationTargets = (event: DeviceOrientationEvent) => {
+    if (!coarsePointer.matches || event.beta === null || event.gamma === null) {
+      return
+    }
+
+    orientationBaseline ??= {
+      beta: event.beta,
+      gamma: event.gamma,
+    }
+
+    const deltaBeta = event.beta - orientationBaseline.beta
+    const deltaGamma = event.gamma - orientationBaseline.gamma
+    const screenAngle = ((getScreenOrientationAngle() % 360) + 360) % 360
+    let tiltX = deltaGamma
+    let tiltY = deltaBeta
+
+    if (screenAngle === 90) {
+      tiltX = deltaBeta
+      tiltY = -deltaGamma
+    } else if (screenAngle === 270) {
+      tiltX = -deltaBeta
+      tiltY = deltaGamma
+    } else if (screenAngle === 180) {
+      tiltX = -deltaGamma
+      tiltY = -deltaBeta
+    }
+
+    const maxTilt = 32
+
+    setParallaxTargets(tiltX / maxTilt, tiltY / maxTilt)
+  }
+
+  const startOrientationParallax = () => {
+    if (orientationActive || !coarsePointer.matches || !getDeviceOrientationEvent()) {
+      return
+    }
+
+    orientationBaseline = null
+    orientationActive = true
+    window.addEventListener('deviceorientation', setOrientationTargets, { passive: true })
+  }
+
+  const stopOrientationParallax = () => {
+    if (!orientationActive) {
+      return
+    }
+
+    window.removeEventListener('deviceorientation', setOrientationTargets)
+    orientationActive = false
+    orientationBaseline = null
+  }
+
+  const requestOrientationParallax = async () => {
+    if (orientationPermissionRequested || orientationActive || !coarsePointer.matches) {
+      return
+    }
+
+    orientationPermissionRequested = true
+
+    const orientationEvent = getDeviceOrientationEvent()
+
+    if (!orientationEvent) {
+      return
+    }
+
+    if (typeof orientationEvent.requestPermission !== 'function') {
+      startOrientationParallax()
+      return
+    }
+
+    try {
+      const permission = await orientationEvent.requestPermission()
+
+      if (permission === 'granted') {
+        startOrientationParallax()
+      } else {
+        resetTargets()
+      }
+    } catch {
+      resetTargets()
+    }
+  }
+
+  const requestOrientationParallaxFromGesture = () => {
+    void requestOrientationParallax()
+  }
+
+  const resetOrientationBaseline = () => {
+    orientationBaseline = null
+  }
+
+  if (finePointer.matches) {
+    window.addEventListener('pointermove', setPointerTargets, { passive: true })
+  }
+
+  if (coarsePointer.matches) {
+    const orientationEvent = getDeviceOrientationEvent()
+
+    if (orientationEvent && typeof orientationEvent.requestPermission === 'function') {
+      window.addEventListener('pointerdown', requestOrientationParallaxFromGesture, { once: true, passive: true })
+      window.addEventListener('touchend', requestOrientationParallaxFromGesture, { once: true, passive: true })
+    } else {
+      startOrientationParallax()
+    }
+  }
+
   window.addEventListener('pointerleave', resetTargets)
+  window.addEventListener('orientationchange', resetOrientationBaseline)
+  screen.orientation?.addEventListener('change', resetOrientationBaseline)
   render()
   alignWordmarkPivot()
 
   reduceMotion.addEventListener('change', () => {
     unsubscribe.forEach((stop) => stop())
+    window.removeEventListener('pointermove', setPointerTargets)
+    window.removeEventListener('pointerleave', resetTargets)
+    window.removeEventListener('pointerdown', requestOrientationParallaxFromGesture)
+    window.removeEventListener('touchend', requestOrientationParallaxFromGesture)
+    window.removeEventListener('orientationchange', resetOrientationBaseline)
+    screen.orientation?.removeEventListener('change', resetOrientationBaseline)
+    stopOrientationParallax()
     resetTargets()
     animate(plane, { transform: 'translate3d(0, 0, 0)' }, { duration: 0.2 })
   })
