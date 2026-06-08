@@ -36,7 +36,7 @@
   }
 
   .social-link {
-    @apply relative flex min-h-[6.5rem] flex-[1_1_0] items-end justify-between gap-[clamp(0.9rem,2vw,1.8rem)] pt-[1.05rem] pr-[clamp(3rem,5vw,4.8rem)] pb-[1.05rem] text-[clamp(2rem,3.8vw,4rem)] leading-none font-normal tracking-[0.01em] text-[#eeeeee] uppercase transition-colors duration-[160ms] hover:text-white focus-visible:text-white focus-visible:outline-none max-[980px]:min-h-[5.4rem] max-[980px]:flex-[1_1_auto] max-[980px]:border-t max-[980px]:border-white/[0.16] max-[980px]:pt-[1.45rem] max-[980px]:pr-[2.6rem] max-[980px]:pb-[0.2rem] max-[980px]:text-[clamp(1.7rem,8vw,3.2rem)];
+    @apply relative flex min-h-[6.5rem] flex-[1_1_0] items-end justify-between gap-[clamp(0.9rem,2vw,1.8rem)] pt-[1.05rem] pr-[clamp(2.4rem,4vw,4rem)] pb-[1.05rem] text-[clamp(1.7rem,3.2vw,3.55rem)] leading-none font-normal tracking-[0.01em] text-[#eeeeee] uppercase transition-colors duration-[160ms] hover:text-white focus-visible:text-white focus-visible:outline-none max-[980px]:min-h-[5.4rem] max-[980px]:flex-[1_1_auto] max-[980px]:border-t max-[980px]:border-white/[0.16] max-[980px]:pt-[1.45rem] max-[980px]:pr-[2.6rem] max-[980px]:pb-[0.2rem] max-[980px]:text-[clamp(1.7rem,8vw,3.2rem)];
   }
 
   .social-index {
