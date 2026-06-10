@@ -8,7 +8,7 @@
   }
 
   .annotation {
-    @apply max-[980px]:border-line pointer-events-auto z-[5] flex w-full gap-4 text-[#dddddd] max-[980px]:max-w-[42rem] max-[980px]:border-t max-[980px]:py-[1.35rem] max-[620px]:w-[calc(100vw-2rem)] max-[620px]:max-w-[calc(100vw-2rem)];
+    @apply max-[980px]:border-line pointer-events-auto z-[5] flex w-full max-w-[min(29rem,30vw)] gap-4 text-[#dddddd] max-[980px]:max-w-[42rem] max-[980px]:border-t max-[980px]:py-[1.35rem] max-[620px]:w-[calc(100vw-2rem)] max-[620px]:max-w-[calc(100vw-2rem)];
   }
 
   .annotation-index {
@@ -23,8 +23,16 @@
     @apply text-[clamp(0.92rem,1.15vw,1.08rem)] leading-[1.55] break-words text-[#cfcfcf] uppercase;
   }
 
+  .annotation-title {
+    @apply text-[clamp(2rem,3.2vw,3.55rem)] leading-[0.95] font-bold tracking-[-0.01em] text-[#f5f5f5];
+  }
+
   .interactive-title {
     @apply inline-block origin-bottom-left skew-x-[-10deg] uppercase transition-transform duration-[180ms] ease-[ease] group-hover:skew-x-0 group-focus-visible:skew-x-0;
+  }
+
+  .static-title {
+    @apply inline-block origin-bottom-right skew-x-[-10deg] uppercase;
   }
 
   .social-nav {
@@ -52,7 +60,7 @@
   }
 
   .copyright-statement {
-    @apply pointer-events-auto absolute top-1/2 left-[clamp(1.4rem,4vw,4rem)] z-[5] origin-left -translate-y-1/2 -rotate-90 text-[0.72rem] font-bold tracking-[0.08em] whitespace-nowrap text-white/[0.66] uppercase max-[980px]:relative max-[980px]:top-auto max-[980px]:left-auto max-[980px]:mt-[1.8rem] max-[980px]:translate-y-0 max-[980px]:rotate-0;
+    @apply pointer-events-auto absolute right-[clamp(1.4rem,4vw,4rem)] bottom-[clamp(7.2rem,14vh,9rem)] z-[5] origin-right rotate-90 text-[0.72rem] font-bold tracking-[0.08em] whitespace-nowrap text-white/[0.66] uppercase max-[980px]:relative max-[980px]:right-auto max-[980px]:bottom-auto max-[980px]:mt-[1.8rem] max-[980px]:rotate-0;
   }
 
   .copyright-marker {
