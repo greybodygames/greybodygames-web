@@ -14,6 +14,7 @@ This file is the shared operating context for agents working in this repository.
 
 - Static portfolio site for Greybody Games.
 - Stack: Vite, TypeScript, Tailwind CSS v4, Motion, modular CSS, and canvas-based interactive effects.
+- Hosting: GitHub Pages, built and deployed from GitHub Actions.
 - Entry points:
   - `index.html` owns the page markup and semantic content.
   - `src/main.ts` owns interactive behavior, canvas rendering, pointer/device parallax, and motion handling.
@@ -55,6 +56,8 @@ Run the narrowest useful checks for the change:
 - `npm run format:check` for formatting-only verification.
 - `npm run build` for TypeScript and production build verification.
 - `npm run dev` when visual or interaction changes need browser inspection.
+
+Pull requests run `.github/workflows/ci.yml`. Pushes to `main` run `.github/workflows/deploy-pages.yml`, which repeats the formatting and build checks before deploying `dist/` to the `github-pages` environment.
 
 For visual changes, inspect at least desktop and mobile widths. Check that:
 
