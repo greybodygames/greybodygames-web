@@ -57,7 +57,7 @@ Run the narrowest useful checks for the change:
 - `npm run build` for TypeScript and production build verification.
 - `npm run dev` when visual or interaction changes need browser inspection.
 
-Pull requests run `.github/workflows/ci.yml`. Pushes to `main` run `.github/workflows/deploy-pages.yml`, which repeats the formatting and build checks before deploying `dist/` to the `github-pages` environment.
+`.github/workflows/pipeline.yml` owns pull-request, production-push, and manual triggers. It calls `.github/workflows/ci.yml` and `.github/workflows/deploy-pages.yml` through `workflow_call`: pull requests run CI only, while eligible pushes to `main` and manual runs from `main` deploy after CI succeeds. CI builds and validates `dist/` once, uploads it as an ordinary workflow artifact only for deployment-eligible runs, and the deployment workflow validates and repackages that same-run artifact for the `github-pages` environment.
 
 For visual changes, inspect at least desktop and mobile widths. Check that:
 
