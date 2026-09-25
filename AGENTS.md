@@ -20,7 +20,7 @@ This file is the shared operating context for agents working in this repository.
   - `src/main.ts` owns interactive behavior, canvas rendering, pointer/device parallax, and motion handling.
   - `src/style.css` imports Tailwind and the home style modules.
 - Public brand assets live in `public/`.
-- Local font assets live in `src/assets/fonts/`.
+- Chakra Petch assets live in `src/assets/fonts/`. GreyBody Display lives in `public/assets/greybody-display.woff` so other pages can use its stable URL.
 - `AgentNotes/website-concept.png` is a visual concept reference. Consult it before changing the core look and feel.
 
 ## Design Direction
