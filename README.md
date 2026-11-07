@@ -22,6 +22,6 @@ npm run build
 
 ## Deployment
 
-Pull requests are verified by [`.github/workflows/ci.yml`](.github/workflows/ci.yml). Pushes to `main` are built and deployed to GitHub Pages by [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml).
+Pull requests are verified by [`.github/workflows/ci.yaml`](.github/workflows/ci.yaml). Pushes to `main` are built and deployed to GitHub Pages by [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml).
 
 The `greybodygames.com` custom domain is configured in the repository's GitHub Pages settings. A committed `CNAME` file is not required for the custom workflow deployment.
