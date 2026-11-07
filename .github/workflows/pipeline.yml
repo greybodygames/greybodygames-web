@@ -24,6 +24,7 @@ jobs:
     name: CI
     permissions:
       contents: read
+      security-events: write
     uses: ./.github/workflows/ci.yml
     with:
       publish-artifact: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') }}
