@@ -14,7 +14,7 @@ This file is the shared operating context for agents working in this repository.
 
 - Static portfolio site for Greybody Games.
 - Stack: Vite, TypeScript, Tailwind CSS v4, Motion, modular CSS, and canvas-based interactive effects.
-- Hosting: GitHub Pages, built and deployed from GitHub Actions.
+- Deployment target: Kubernetes via GitOps.
 - Entry points:
   - `index.html` owns the page markup and semantic content.
   - `src/main.ts` owns interactive behavior, canvas rendering, pointer/device parallax, and motion handling.
@@ -57,7 +57,9 @@ Run the narrowest useful checks for the change:
 - `npm run build` for TypeScript and production build verification.
 - `npm run dev` when visual or interaction changes need browser inspection.
 
-`.github/workflows/pipeline.yaml` owns pull-request, production-push, and manual triggers. It calls `.github/workflows/ci.yml` and `.github/workflows/deploy-pages.yml` through `workflow_call`: pull requests run CI only, while eligible pushes to `main` and manual runs from `main` deploy after CI succeeds. CI builds and validates `dist/` once, uploads it as an ordinary workflow artifact only for deployment-eligible runs, and the deployment workflow validates and repackages that same-run artifact for the `github-pages` environment.
+`.github/workflows/pipeline.yaml` owns pull-request, production-push, and manual triggers. CI builds and validates `dist/`.
+
+`detect-delivery-changes.yaml` selects changes to website delivery inputs. After CI passes, `deliver-website.yaml` calls `prepare-website.yaml` to publish the root Docker image on pushes to `main` and manual runs from `main`. It then hands the published tag to `deploy.yaml` for the `greybody` Landscape chart directory. The container serves `dist/` through unprivileged Nginx on port `8080` and exposes `/healthz` for probes.
 
 For visual changes, inspect at least desktop and mobile widths. Check that:
 

@@ -2,12 +2,6 @@ name: CI
 
 on:
   workflow_call:
-    inputs:
-      publish-artifact:
-        description: Upload the generated site for the deployment workflow
-        required: false
-        default: false
-        type: boolean
 
 permissions: {}
 
@@ -20,7 +14,7 @@ jobs:
       contents: read
 
     steps:
-      - name: Checkout and install Node dependencies
+      - name: Checkout and install dependencies
         uses: SayakMukhopadhyay/github-actions/checkout-dependencies@v1
         with:
           node-version-file: .nvmrc
@@ -35,16 +29,6 @@ jobs:
         uses: SayakMukhopadhyay/github-actions/validate-static-site@v1
         with:
           path: dist
-
-      - name: Upload generated site
-        if: inputs.publish-artifact
-        uses: actions/upload-artifact@v7
-        with:
-          name: site-greybody-games
-          path: dist
-          if-no-files-found: error
-          include-hidden-files: true
-          retention-days: 7
 
   codeql:
     name: Analyze Go with CodeQL
