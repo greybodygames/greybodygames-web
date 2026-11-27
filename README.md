@@ -1,6 +1,6 @@
-# Greybody Games
+# GreyBody Games
 
-Static portfolio site for [Greybody Games](https://greybodygames.com).
+Static portfolio site for [GreyBody Games](https://greybodygames.com).
 
 ## Development
 

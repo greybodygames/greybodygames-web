@@ -2,7 +2,7 @@
   "name": "@greybodygames/greybodygames-web",
   "private": true,
   "version": "0.0.0",
-  "description": "Static portfolio site for Greybody Games.",
+  "description": "Static portfolio site for GreyBody Games.",
   "type": "module",
   "scripts": {
     "dev": "vite",

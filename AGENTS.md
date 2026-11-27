@@ -1,4 +1,4 @@
-# Greybody Games Web Agent Instructions
+# GreyBody Games Web Agent Instructions
 
 This file is the shared operating context for agents working in this repository. Keep it current when project structure, design direction, build commands, or important conventions change.
 
@@ -12,7 +12,7 @@ This file is the shared operating context for agents working in this repository.
 
 ## Project Snapshot
 
-- Static portfolio site for Greybody Games.
+- Static portfolio site for GreyBody Games.
 - Stack: Vite, TypeScript, Tailwind CSS v4, Motion, modular CSS, and canvas-based interactive effects.
 - Deployment target: Kubernetes via GitOps.
 - Entry points:
@@ -26,7 +26,7 @@ This file is the shared operating context for agents working in this repository.
 ## Design Direction
 
 - The site should feel like a sharp, high-contrast game studio identity piece: monochrome, technical, cinematic, precise, and minimal.
-- Keep the first viewport focused on the Greybody Games identity system, wordmark, orbit treatment, annotations, and social/work links.
+- Keep the first viewport focused on the GreyBody Games identity system, wordmark, orbit treatment, annotations, and social/work links.
 - The current visual system relies on black/near-black backgrounds, white/gray typography, thin technical lines, circular markers, skewed uppercase display text, and restrained motion.
 - Avoid generic SaaS, landing-page, or card-heavy patterns. The page should not drift into decorative gradients, soft blobs, stock imagery, or marketing-template composition.
 - Preserve responsive composition. Desktop can be poster-like and spatial; tablet/mobile should become readable, stacked, and scrollable without losing the identity-stage impact.
@@ -45,7 +45,7 @@ This file is the shared operating context for agents working in this repository.
 - `src/styles/home/theme.css` defines fonts and core theme tokens.
 - `src/styles/home/base.css`, `components.css`, `poster.css`, `identity.css`, and `responsive.css` split styling by responsibility. Put new rules in the closest matching module.
 - Tailwind utilities are used through CSS `@apply`; keep that pattern consistent instead of mixing large inline class rewrites into `index.html`.
-- Maintain the existing typography system: Chakra Petch for UI/body text and GreyBody Display for brand display usage.
+- Maintain the existing typography system: Chakra Petch for UI/body text and GreyBody Games Display for brand display usage.
 - Keep letter spacing, uppercase treatments, line weights, and border opacity consistent with existing components.
 - Test mobile breakpoints when changing layout. Current key breakpoints include `980px` and `620px`.
 
