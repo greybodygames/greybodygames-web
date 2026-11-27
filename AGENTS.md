@@ -59,7 +59,7 @@ Run the narrowest useful checks for the change:
 
 `.github/workflows/pipeline.yaml` owns pull-request, production-push, and manual triggers. CI builds and validates `dist/`.
 
-`detect-delivery-changes.yaml` selects changes to website delivery inputs. After CI passes, `deliver-website.yaml` calls `prepare-website.yaml` to publish the root Docker image on pushes to `main` and manual runs from `main`. It then hands the published tag to `deploy.yaml` for the `greybody` Landscape chart directory. The container serves `dist/` through unprivileged Nginx on port `8080` and exposes `/healthz` for probes.
+`detect-delivery-changes.yaml` selects changes to website delivery inputs. After CI passes, `deliver-website.yaml` calls `prepare-website.yaml` to publish the root Docker image on pushes to `main` and manual runs from `main`. It then hands the published tag to `deploy.yaml` for the `greybodygames` Landscape chart directory. The container serves `dist/` through unprivileged Nginx on port `8080` and exposes `/healthz` for probes.
 
 For visual changes, inspect at least desktop and mobile widths. Check that:
 

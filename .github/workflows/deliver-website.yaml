@@ -33,7 +33,7 @@ jobs:
     uses: $/.github/workflows/deploy.yaml
     with:
       deployment-environment: website
-      chart-name: greybody
+      chart-name: greybodygames
       image-tag: ${{ needs.prepare-website.outputs.image-tag }}
     secrets:
       GITOPS_APP_PRIVATE_KEY: ${{ secrets.GITOPS_APP_PRIVATE_KEY }}
